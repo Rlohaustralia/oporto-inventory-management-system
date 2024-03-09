@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>Signup</title>
+  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+  <style>
+    .container {
+        max-width: 860px;
+        margin: auto;
+        padding: 20px;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .submit-btn {
+        width: 200px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="py-5 text-center">
+    <h2>
+      Sign Up
+    </h2>
+  </div>
+  <h4 class="mb-3">Please fill out the form</h4>
+  <form action="/signup" method="post" class="signup-form">
+    <div class="form-group">
+      <label for="memberEmail">Email</label>
+      <input type="text" id="memberEmail" name="memberEmail" class="form-control" placeholder="Please enter your email">
+    </div>
+    <div class="form-group">
+      <label for="memberPassword">Password</label>
+      <input type="password" id="memberPassword" name="memberPassword" class="form-control" placeholder="Please enter your password">
+    </div>
+    <div class="form-group">
+      <label for="memberName">Name</label>
+      <input type="text" id="memberName" name="memberName" class="form-control" placeholder="Please enter your name">
+    </div>
+    <div class="form-group">
+      <label for="memberPosition">Position</label>
+      <select id="memberPosition" name="memberPosition" class="form-control">
+        <option value="" selected disabled>Please select your position</option>
+        <option value="Staff">Staff</option>
+        <option value="Manager">Manager</option>
+        <option value="Supervisor">Supervisor</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="memberBranch">Branch</label>
+      <select id="memberBranch" name="memberBranch" class="form-control">
+        <option value="" selected disabled>Please select a branch</option>
+        <option value="Sydney CBD - George Street">Sydney CBD - George Street</option>
+        <option value="Melbourne CBD - Swanston Street">Melbourne CBD - Swanston Street</option>
+        <option value="Brisbane CBD - Queen Street Mall">Brisbane CBD - Queen Street Mall</option>
+        <option value="Perth CBD - Murray Street Mall">Perth CBD - Murray Street Mall</option>
+        <option value="Adelaide CBD - Rundle Mall">Adelaide CBD - Rundle Mall</option>
+        <option value="Gold Coast - Surfers Paradise">Gold Coast - Surfers Paradise</option>
+        <option value="Canberra CBD - City Centre">Canberra CBD - City Centre</option>
+        <option value="Newcastle - Westfield Kotara">Newcastle - Westfield Kotara</option>
+        <option value="Wollongong - Crown Street Mall">Wollongong - Crown Street Mall</option>
+        <option value="Hobart - Liverpool Street">Hobart - Liverpool Street</option>
+      </select>
+    </div>
+
+    <hr class="my-4">
+    <div class="row">
+      <div class="col">
+        <button class="w-100 btn btn-primary btn-lg" type="submit">SUBMIT</button>
+      </div>
+      <div class = "col">
+        <button class="w-100 btn btn-secondary btn-lg"
+                onclick="location.href='/"
+                th:onclick="|location.href='@{/}'|"
+                type="button">CANCEL</button>
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+</html>
