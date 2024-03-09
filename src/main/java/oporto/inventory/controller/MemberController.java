@@ -62,7 +62,7 @@ public class MemberController {
 
         if(loggedInMember.isPresent()) {
             // Success to log in
-            return "redirect:/admin/items";
+            return "redirect:/admin/menus";
         } else {
             // Fail to log in
             return "view/login";

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+        .container {
+        max-width: 860px;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>
+            MENU REGISTRATION FORM
+        </h2>
+    </div>
+    <h4 class="mb-3">Please fill out the form</h4>
+    <form action="menu.html" th:action method="post">
+        <div>
+            <label for = "menuCategory">MENU CATEGORY</label>
+            <input type="text" id="menuCategory" name="menuCategory" class="form-control" placeholder="Please type the menu category">
+        </div>
+        <div>
+            <label for = "menuName">MENU NAME</label>
+            <input type="text" id="menuName" name="menuName" class="form-control" placeholder="Please type the menu name">
+        </div>
+        <div>
+            <label for = "menuPrice">MENU PRICE</label>
+            <input type="text" id="menuPrice" name="menuPrice" class="form-control" placeholder="Please type the price of the menu">
+        </div>
+        <div>
+            <label for = "menuQuantity">MENU QUANTITY</label>
+            <input type="text" id="menuQuantity" name="menuQuantity" class="form-control" placeholder="Please type the quantity of the menu">
+        </div>
+
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">SUBMIT</button>
+            </div>
+            <div class = "col">
+                <button class="w-100 btn btn-secondary btn-lg"
+                        onclick="location.href='menus.html'"
+                        th:onclick="|location.href='@{/admin/menus}'|"
+                        type="button">CANCEL</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

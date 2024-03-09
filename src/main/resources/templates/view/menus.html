@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="container" style="max-width:900px">
+    <div class = "py-5 text-center">
+        <h2> MENU LIST </h2>
+    </div>
+    <h4 th:if="${param.deleteStatus}" th:text="'Successfully deleted!'"></h4>
+    <div class="row">
+        <div class="col">
+            <button class = "btn btn-primary float-end"
+                    onclick="location.href='menuRegistrationForm.html'"
+                    th:onclick="|location.href='@{/admin/menus/register}'|"
+                    type="button"> MENU REGISTRATION </button>
+        </div>
+    </div>
+
+    <hr class ="my-4">
+    <div>
+        <table class ="table">
+            <thead>
+            <tr>
+                <th>MENU ID</th>
+                <th>MENU CATEGORY</th>
+                <th>MENU NAME</th>
+                <th>MENU PRICE (AUD)</th>
+                <th>MENU QUANTITY</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="menu : ${menus}">
+                <td><a href="menu.html" th:href="@{/admin/menus/{menuId} (menuId=${menu.id})}"
+                       th:text="${menu.id}">MENU ID</a></td>
+                <td th:text="${menu.menuCategory}">MENU CATEGORY</td>
+                <td><a href="menu.html" th:href="@{|/admin/menus/${menu.id}|}"
+                       th:text="${menu.menuName}">MENU NAME</a></td>
+                <td th:text="${menu.price}">MENU PRICE</td>
+                <td th:text="${menu.quantity}">MENU QUANTITY</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

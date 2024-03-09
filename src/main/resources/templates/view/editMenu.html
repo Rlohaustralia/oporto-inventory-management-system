@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 860px;
+} </style>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2> EDIT MENU INFORMATION </h2>
+    </div>
+    <form action="menu.html" th:action method="post">
+        <div>
+            <label for="id">MENU ID</label>
+            <input type="text" id="id" name="id" class="form-control" value="BUR001" th:value="${menu.id}" readonly>
+        </div>
+        <div>
+            <label for="menuCategory">MENU CATEGORY</label>
+            <input type="text" id="menuCategory" name="menuCategory" class="form-control" value="Burgers" th:value="${menu.menuCategory}">
+        </div>
+        <div>
+            <label for="menuName">MENU NAME</label>
+            <input type="text" id="menuName" name="menuName" class="form-control" value="Bondi Burger" th:value="${menu.menuName}">
+        </div>
+        <div>
+            <label for="menuPrice">MENU PRICE</label>
+            <input type="text" id="menuPrice" name="menuPrice" class="form-control" value="11.45" th:value="${menu.price}">
+        </div>
+        <div>
+            <label for="menuQuantity">MENU QUANTITY</label>
+            <input type="text" id="menuQuantity" name="menuQuantity" class="form-control" value="99" th:value="${menu.quantity}">
+        </div>
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">SAVE</button>
+            </div>
+            <div class="col">
+                <button class="w-100 btn btn-secondary btn-lg"
+                        onclick="location.href='menu.html'"
+                        th:onclick="|location.href='@{/admin/menus/{menuId}(menuId=${menu.id})}'|"
+                        type="button">CANCEL</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

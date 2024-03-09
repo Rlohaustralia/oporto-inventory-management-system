@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter //  to automatically generate code such as getters, setters and constructor
+@Setter // to automatically generate code such as getters, setters and constructor
 @RequiredArgsConstructor
 public class Menu {
 
