@@ -19,7 +19,7 @@ public class MemberRepository {
         String generatedId = generatedId(member.getMemberPosition());
         member.setId(generatedId);
 
-        String sql = "INSERT INTO Member (id, memberEmail, memberPassword, memberName, memberPosition, memberBranch) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO member (id, memberEmail, memberPassword, memberName, memberPosition, memberBranch) VALUES (?, ?, ?, ?, ?, ?)";
 
 
         jdbcTemplate.update(
@@ -39,7 +39,7 @@ public class MemberRepository {
 
         // Retrieve a member from the DB by the email typed by the user.
 
-        String sql = "SELECT memberPassword FROM Member WHERE memberEmail = ?";
+        String sql = "SELECT memberPassword FROM member WHERE memberEmail = ?";
         Member memberInfo = jdbcTemplate.queryForObject(sql,
                 new Object[]{memberEmail},
                 new BeanPropertyRowMapper<>(Member.class));
@@ -74,7 +74,7 @@ public class MemberRepository {
 
 
     private int countItemsByPosition(String memberPosition) {
-        String sql = "SELECT COUNT(*) FROM Member WHERE memberPosition = ?";
+        String sql = "SELECT COUNT(*) FROM member WHERE memberPosition = ?";
         return jdbcTemplate.queryForObject(sql, Integer.class, memberPosition);
     }
 }
