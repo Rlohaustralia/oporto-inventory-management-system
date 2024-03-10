@@ -21,9 +21,18 @@
             <input type="text" id="menuId" name="menuId" class="form-control" value="BUR001" th:value="${menu.id}" readonly>
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="menuCategory">MENU CATEGORY</label>
-            <input type="text" id="menuCategory" name="menuCategory" class="form-control" value="Burgers" th:value="${menu.menuCategory}">
+            <select id="menuCategory" name="menuCategory" class="form-control">
+                <option value="" selected disabled>Please select menu category</option>
+                <option value="Burgers">Burgers</option>
+                <option value="Rappas">Rappas</option>
+                <option value="Bowls">Bowls</option>
+                <option value="Kids">Kids</option>
+                <option value="Sides">Sides</option>
+                <option value="Sauces">Sauces</option>
+                <option value="Drinks">Drinks</option>
+            </select>
         </div>
         <div>
             <label for="menuName">MENU NAME</label>
