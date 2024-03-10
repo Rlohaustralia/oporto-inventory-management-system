@@ -14,11 +14,11 @@
     <div class="py-5 text-center">x
         <h2> EDIT MENU INFORMATION </h2>
     </div>
-<!--    <form action="menu.html" th:action method="post">-->
-    <form th:action="@{'/admin/menus/' + ${menu.id} + '/edit'}" method="post">
+    <form action="menu.html" th:action method="post">
+
         <div>
-            <label for="id">MENU ID</label>
-            <input type="text" id="id" name="id" class="form-control" value="BUR001" th:value="${menu.id}" readonly>
+            <label for="menuId">MENU ID</label>
+            <input type="text" id="menuId" name="menuId" class="form-control" value="BUR001" th:value="${menu.id}" readonly>
         </div>
         <div>
             <label for="menuCategory">MENU CATEGORY</label>
