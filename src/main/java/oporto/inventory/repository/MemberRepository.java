@@ -18,10 +18,7 @@ public class MemberRepository {
 
         String generatedId = generatedId(member.getMemberPosition());
         member.setId(generatedId);
-
         String sql = "INSERT INTO member (id, memberEmail, memberPassword, memberName, memberPosition, memberBranch) VALUES (?, ?, ?, ?, ?, ?)";
-
-
         jdbcTemplate.update(
                 sql,
                 member.getId(),
@@ -30,7 +27,6 @@ public class MemberRepository {
                 member.getMemberName(),
                 member.getMemberPosition(),
                 member.getMemberBranch());
-
         return member;
     }
 

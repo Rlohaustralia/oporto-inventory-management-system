@@ -42,7 +42,6 @@
         <label for="menuQuantity"> MENU QUANTITY </label>
         <input type="text" id="menuQuantity" name="menuQuantity" class="form-control" value="99" th:value="${menu.menuQuantity}" readonly>
     </div>
-
     <hr class="my-4">
     <div class="row">
         <div class="col">
@@ -51,14 +50,12 @@
                     th:onclick="|location.href='@{/admin/menus/{menuId}/edit(menuId=${menu.id})}'|" type="button">
                     EDIT </button>
         </div>
-
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='menus.html'"
                     th:onclick="|location.href='@{/admin/menus/{menuId}/delete(menuId=${menu.id})}'|" type="button">
                     DELETE </button>
         </div>
-
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
                     onclick="location.href='menus.html'"

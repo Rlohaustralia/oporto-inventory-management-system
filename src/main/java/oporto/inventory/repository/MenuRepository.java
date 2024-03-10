@@ -40,7 +40,6 @@ public class MenuRepository {
     public Menu saveMenu(Menu menu) {
         String generatedId = generateId(menu.getMenuCategory());
         menu.setId(generatedId);
-
         String sql = "INSERT INTO menu (id, menuCategory, menuName, menuPrice, menuQuantity) VALUES(?, ?, ?, ?, ?)";
         jdbcTemplate.update(
                 sql,
@@ -120,7 +119,4 @@ public class MenuRepository {
             }
         };
     }
-
-
-
 }
