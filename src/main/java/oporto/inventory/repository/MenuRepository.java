@@ -56,7 +56,7 @@ public class MenuRepository {
 
     // Update menus
     public void updateMenu(String id, Menu updatedMenu) {
-        String sql = "UPDATE menu SET menuCategory = ?, menuName = ?, menuPrice = ?, menuQuantity = ?";
+        String sql = "UPDATE menu SET menuCategory = ?, menuName = ?, menuPrice = ?, menuQuantity = ? WHERE id = ?";
         jdbcTemplate.update(sql,
                 updatedMenu.getMenuCategory(),
                 updatedMenu.getMenuName(),
