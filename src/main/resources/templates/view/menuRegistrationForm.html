@@ -18,9 +18,23 @@
     </div>
     <h4 class="mb-3">Please fill out the form</h4>
     <form action="menu.html" th:action method="post">
-        <div>
-            <label for = "menuCategory">MENU CATEGORY</label>
-            <input type="text" id="menuCategory" name="menuCategory" class="form-control" placeholder="Please type the menu category">
+<!--        <div>-->
+<!--            <label for = "menuCategory">MENU CATEGORY</label>-->
+<!--            <input type="text" id="menuCategory" name="menuCategory" class="form-control" placeholder="Please type the menu category">-->
+<!--        </div>-->
+
+        <div class="form-group">
+            <label for="menuCategory">MENU CATEGORY</label>
+            <select id="menuCategory" name="menuCategory" class="form-control">
+                <option value="" selected disabled>Please select menu category</option>
+                <option value="Burgers">Burgers</option>
+                <option value="Rappas">Rappas</option>
+                <option value="Bowls">Bowls</option>
+                <option value="Kids">Kids</option>
+                <option value="Sides">Sides</option>
+                <option value="Sauces">Sauces</option>
+                <option value="Drinks">Drinks</option>
+            </select>
         </div>
         <div>
             <label for = "menuName">MENU NAME</label>
