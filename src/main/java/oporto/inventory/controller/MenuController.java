@@ -95,7 +95,7 @@ public class MenuController {
     }
 
 
-    @GetMapping("/{itemId}/delete") // HTTP GET requests for deleting the item
+    @GetMapping("/{menuId}/delete") // HTTP GET requests for deleting the item
     public String deleteMenu(@PathVariable(name = "menuId") String id,
                              RedirectAttributes redirectAttributes) {
         menuRepository.deleteMenu(id);
