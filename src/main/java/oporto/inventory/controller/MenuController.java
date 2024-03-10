@@ -78,10 +78,10 @@ public class MenuController {
 
     @PostMapping("/{menuId}/edit") // HTTP GET requests for editing the form
     public String postEditForm(@PathVariable(name = "menuId") String menuId,
-                               @PathVariable(name = "menuCategory") String menuCategory,
-                               @PathVariable(name = "menuName") String menuName,
-                               @PathVariable(name = "menuPrice") double menuPrice,
-                               @PathVariable(name = "menuQuantity") int menuQuantity,
+                               @RequestParam(name = "menuCategory") String menuCategory,
+                               @RequestParam(name = "menuName") String menuName,
+                               @RequestParam(name = "menuPrice") double menuPrice,
+                               @RequestParam(name = "menuQuantity") int menuQuantity,
                                Model model,
                                RedirectAttributes redirectAttributes) {
         Menu menu = new Menu();
