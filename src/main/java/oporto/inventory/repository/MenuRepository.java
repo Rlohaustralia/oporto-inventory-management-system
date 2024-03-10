@@ -38,7 +38,7 @@ public class MenuRepository {
 
     // Save menus
     public Menu saveMenu(Menu menu) {
-        String generatedId = generateId(menu.getId());
+        String generatedId = generateId(menu.getMenuCategory());
         menu.setId(generatedId);
 
         String sql = "INSERT INTO menu (id, menuCategory, menuName, menuPrice, menuQuantity) VALUES(?, ?, ?, ?, ?)";
