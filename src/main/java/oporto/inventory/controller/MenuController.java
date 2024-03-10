@@ -102,9 +102,4 @@ public class MenuController {
         redirectAttributes.addAttribute("deleteStatus", true);
         return "redirect:/admin/menus";
     }
-
-
-
-
-
 }
