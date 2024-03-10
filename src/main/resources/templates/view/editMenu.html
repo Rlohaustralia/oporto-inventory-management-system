@@ -5,12 +5,12 @@
     <link href="../css/bootstrap.min.css"
           th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <style>
-        .container {
+    .container {
         max-width: 860px;
         margin: auto;
         padding: 20px;
-        }
-        .form-group {
+    }
+    .form-group {
         margin-bottom: 20px;
     }
     </style>
@@ -21,12 +21,10 @@
         <h2> EDIT MENU INFORMATION </h2>
     </div>
     <form action="menu.html" th:action method="post">
-
-        <div>
+        <div class="form-group">
             <label for="menuId">MENU ID</label>
             <input type="text" id="menuId" name="menuId" class="form-control" value="BUR001" th:value="${menu.id}" readonly>
         </div>
-
         <div class="form-group">
             <label for="menuCategory">MENU CATEGORY</label>
             <select id="menuCategory" name="menuCategory" class="form-control">
@@ -40,15 +38,15 @@
                 <option value="Drinks">Drinks</option>
             </select>
         </div>
-        <div>
+        <div class="form-group">
             <label for="menuName">MENU NAME</label>
             <input type="text" id="menuName" name="menuName" class="form-control" value="Bondi Burger" th:value="${menu.menuName}">
         </div>
-        <div>
+        <div class="form-group">
             <label for="menuPrice">MENU PRICE</label>
             <input type="text" id="menuPrice" name="menuPrice" class="form-control" value="11.45" th:value="${menu.menuPrice}">
         </div>
-        <div>
+        <div class="form-group">
             <label for="menuQuantity">MENU QUANTITY</label>
             <input type="text" id="menuQuantity" name="menuQuantity" class="form-control" value="99" th:value="${menu.menuQuantity}">
         </div>
