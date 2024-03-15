@@ -8,21 +8,10 @@ This program is for
 
 
 ## Built with
-Backend
-- Java
-- Spring Boot 3.2.3
-- MySQL
-
-Frontend
-- Thymeleaf
-- Bootstrap CSS
-
-Tools and Platforms
-- Apache Tomcat 10.1.19
-- AWS EC2 (Ubuntu)
-- AWS RDS (MySQL)
-- IntelliJ IDEA
-
+- Backend: Java, Spring Boot 3.2.3, MySQL
+- Frontend: HTML, Thymeleaf, Bootstrap CSS
+- Tools and Platforms: Apache Tomcat 10.1.19, AWS EC2 (Ubuntu) & RDS (MySQL), IntelliJ IDEA
+<br><br><br>
 
 ## Sequence Diagram (Member)
 The sequence diagram illustrates the process of a member signing up or signing in to access the inventory management system.
