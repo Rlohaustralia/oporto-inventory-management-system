@@ -12,7 +12,6 @@ It includes the following functionality:
 ## Explore the system
 [Visit the Live Website](http://13.210.82.42:8080/)
 ![Demo_img](demo_img.png)
-<br><br><br>
 
 
 ## Built with
