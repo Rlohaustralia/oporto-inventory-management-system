@@ -1,7 +1,7 @@
 # Oporto's inventory management system
 ## Description
 ## Built with
-Language : JAVA(JDK 1.8), Thymeleaf, CSS, 
+Language : JAVA(JDK 1.8), Thymeleaf, CSS <br>
 Server : Apache Tomcat 8.0, AWS EC2 (ubuntu)
 Framework : SprintBoot
 Database : AWS RDS (MySQL)
