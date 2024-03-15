@@ -7,10 +7,6 @@ This program is for
 <br><br><br>
 
 
-## Description
-<br><br><br>
-
-
 ## Built with
 Language : JAVA(JDK 1.8), Thymeleaf, CSS <br>
 Server : Apache Tomcat 8.0, AWS EC2 (ubuntu) <br>
@@ -34,4 +30,5 @@ The sequence diagram illustrates the interactions related to menu management wit
 
 
 ### Development journal
+<br><br><br>
 
