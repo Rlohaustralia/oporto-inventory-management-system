@@ -33,7 +33,7 @@ The sequence diagram illustrates the interactions related to menu management wit
 <br><br><br>
 
 
-### Development journal
+## Development journal
 https://ringed-mist-28d.notion.site/9962c1a4fc6941169fef23fc271936b6
 <br><br><br>
 
