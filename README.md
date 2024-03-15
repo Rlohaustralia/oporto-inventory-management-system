@@ -27,7 +27,7 @@ The sequence diagram illustrates the process of a member signing up or signing i
 
 ## Sequence Diagram (Inventory management)
 The sequence diagram illustrates the interactions related to menu management within the system, including menu registration, viewing menu lists, accessing menu details, editing menu details, and deleting menus.
-<br>
+<br><br><br>
 ![Sequence Diagram](sequence_diagram(Inventory).drawio.png)
 <br><br><br>
 
