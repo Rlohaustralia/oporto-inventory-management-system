@@ -10,8 +10,6 @@ Oporto's Inventory Management System is a fictional system designed to manage in
 
 
 ## Demo
-[Watch Demo Video](https://youtu.be/U0T9XXeQf9A)
-<br>
 http://13.210.82.42:8080/
 <br><br><br>
 
