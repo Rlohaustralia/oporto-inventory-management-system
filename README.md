@@ -1,4 +1,4 @@
-# Oporto's inventory management system
+# Oporto's Inventory Management System
 Oporto's Inventory Management System is a fictional system designed to manage inventory and facilitate various operations within the Oporto restaurant chain. This system streamlines inventory management processes and enhances the overall efficiency of operations within the Oporto restaurant chain. It includes the following functionality:
 
 - **Member Registration and Authentication:** Allows users to register as members of the system and authenticate themselves to access restricted features.
@@ -34,7 +34,7 @@ The sequence diagram illustrates the interactions related to menu management wit
 <br><br><br>
 
 
-## Development journal
-https://ringed-mist-28d.notion.site/9962c1a4fc6941169fef23fc271936b6
+## Development Log
+[Please click here to see my development log](https://ringed-mist-28d.notion.site/9962c1a4fc6941169fef23fc271936b6)
 <br><br><br>
 
