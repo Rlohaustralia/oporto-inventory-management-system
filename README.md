@@ -7,7 +7,7 @@ It includes the following functionality:
 - **Menu Editing:** Provides functionality to edit existing menu items, allowing for updates to prices, quantity, or other attributes.
 - **Menu Deletion:** Allows administrators to remove items from the menu when they are no longer available or relevant.
 [Watch Demo](https://youtu.be/U0T9XXeQf9A)
-<br><br><br>
+
 
 
 ## Explore the system
