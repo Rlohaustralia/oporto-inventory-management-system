@@ -5,7 +5,7 @@ It includes the following functionality:
 - **Member Registration and Authentication:** Allows users to register as members of the system and authenticate themselves to access restricted features.
 - **Menu Registration:** Enables the registration of items onto the menu list, including their categories, names, prices, quantity and other relevant details.
 - **Menu Editing:** Provides functionality to edit existing menu items, allowing for updates to prices, quantity, or other attributes.
-- **Menu Deletion:** Allows administrators to remove items from the menu when they are no longer available or relevant.
+- **Menu Deletion:** Allows administrators to remove items from the menu when they are no longer available or relevant.<br>
 [Watch Demo](https://youtu.be/U0T9XXeQf9A)
 <br><br><br>
 
