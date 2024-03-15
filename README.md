@@ -8,16 +8,16 @@ This program is for
 
 
 ## Built with
-* Backend
+Backend
 - Java
 - Spring Boot 3.2.3
 - MySQL
 
-* Frontend
+Frontend
 - Thymeleaf
 - Bootstrap CSS
 
-* Tools and Platforms
+Tools and Platforms
 - Apache Tomcat 10.1.19
 - AWS EC2 (Ubuntu)
 - AWS RDS (MySQL)
