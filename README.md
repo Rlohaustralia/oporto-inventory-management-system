@@ -1,10 +1,11 @@
 # Oporto's inventory management system
 This program is for 
 <br><br><br>
+![Uploading Screenshot 2024-03-15 at 3.40.39 pm.png…]()
 
 
 ## Demo
-LINK ------> http://13.210.82.42:8080/
+http://13.210.82.42:8080/
 <br><br><br>
 
 
