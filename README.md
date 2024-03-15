@@ -10,7 +10,7 @@ Oporto's Inventory Management System is a fictional system designed to manage in
 
 
 ## Explore the system!
-http://13.210.82.42:8080/
+[Try it out](http://13.210.82.42:8080/)
 <br><br><br>
 
 
