@@ -20,7 +20,7 @@ IDE : Intellij <br><br><br>
 
 ## Sequence Diagram (Member)
 The sequence diagram illustrates the process of a member signing up or signing in to access the inventory management system.
-<br>
+<br><br><br>
 ![Sequence Diagram](sequence_diagram(Member).drawio.png)
 <br><br><br>
 
