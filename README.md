@@ -1,1 +1,1 @@
-![Uploading sequence_diagram.drawio.png…]()
+![Sequence Diagram](sequence_diagram(Member).drawio.png)
