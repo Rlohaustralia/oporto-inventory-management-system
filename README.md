@@ -8,11 +8,20 @@ This program is for
 
 
 ## Built with
-Language : JAVA(JDK 1.8), Thymeleaf, CSS <br>
-Server : Apache Tomcat 8.0, AWS EC2 (ubuntu) <br>
-Framework : SprintBoot <br>
-Database : AWS RDS (MySQL) <br>
-IDE : Intellij <br><br><br>
+* Backend
+- Java
+- Spring Boot 3.2.3
+- MySQL
+
+* Frontend
+- Thymeleaf
+- Bootstrap CSS
+
+* Tools and Platforms
+- Apache Tomcat 10.1.19
+- AWS EC2 (Ubuntu)
+- AWS RDS (MySQL)
+- IntelliJ IDEA
 
 
 ## Sequence Diagram (Member)
