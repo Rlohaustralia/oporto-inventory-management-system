@@ -5,6 +5,7 @@ Oporto's Inventory Management System is a fictional system designed to manage in
 - **Menu Registration:** Enables the registration of items onto the menu list, including their categories, names, prices, quantity and other relevant details.
 - **Menu Editing:** Provides functionality to edit existing menu items, allowing for updates to prices, quantity, or other attributes.
 - **Menu Deletion:** Allows administrators to remove items from the menu when they are no longer available or relevant.
+[Watch Demo](demo.mov)
 <br><br><br>
 
 
