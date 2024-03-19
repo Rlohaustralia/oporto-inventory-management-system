@@ -26,6 +26,7 @@
     </h2>
   </div>
   <h4 class="mb-3">Please fill out the form</h4>
+  <h4 th:if="${param.duplicateEmail}" th:text="'Email already exists. Please use a different email.'"></h4>
   <form action="/signup" method="post" class="signup-form">
     <div class="form-group">
       <label for="memberEmail">Email</label>

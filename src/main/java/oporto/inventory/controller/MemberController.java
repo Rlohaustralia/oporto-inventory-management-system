@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -34,7 +35,8 @@ public class MemberController {
                          @RequestParam (name = "memberName", defaultValue = "na") String memberName,
                          @RequestParam (name = "memberPosition", defaultValue = "na") String memberPosition,
                          @RequestParam (name = "memberBranch", defaultValue = "na") String memberBranch,
-                         Model model) {
+                         Model model,
+                         RedirectAttributes redirectAttributes) {
 
         // Redirect the user back to the signup page if any of the fields are empty
         if (memberEmail.equals("na") || memberPassword.equals("na") || memberName.equals("na") ||
@@ -50,14 +52,15 @@ public class MemberController {
         member.setMemberBranch(memberBranch);
 
         Member savedMember = memberRepository.saveMember(member);
+
+        // if there is a duplicate email then redirect to signup page
         if (savedMember == null) {
-            // Handle duplicate email scenario, for example, by adding an error message to the model
-            model.addAttribute("errorMessage", "Email already exists. Please use a different email.");
+            redirectAttributes.addAttribute("duplicateEmail", true);
             return "redirect:/signup";
         }
 
+        // else
         model.addAttribute("member",savedMember);
-
         return "redirect:/";
     }
 

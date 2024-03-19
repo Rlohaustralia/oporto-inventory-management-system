@@ -17,12 +17,12 @@ public class MemberRepository {
     public Member saveMember(Member member) {
 
         // Check if the email already exists
-        String existingEmailQuery = "SELECT COUNT(*) FROM member WHERE memberEmail = ?";
-        int count = jdbcTemplate.queryForObject(existingEmailQuery, Integer.class, member.getMemberEmail());
+        String duplicateEmail = "SELECT COUNT(*) FROM member WHERE memberEmail = ?";
+        int count = jdbcTemplate.queryForObject(duplicateEmail, Integer.class, member.getMemberEmail());
 
-        if (count > 0) {
-            // Redirect or handle duplicate email scenario
-            return null; // For simplicity, returning null to indicate duplicate email
+        // If there is a duplicate email then return null
+        if(count > 0) {
+            return null;
         }
 
         String generatedId = generatedId(member.getMemberPosition());
