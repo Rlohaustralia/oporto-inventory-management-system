@@ -46,14 +46,15 @@ public class MenuController {
 
 
     @PostMapping("/register") // HTTP POST requests for the menu registration
-    public String postRegistrationForm(@RequestParam(name = "menuCategory") String menuCategory,
-                                       @RequestParam(name = "menuName") String menuName,
-                                       @RequestParam(name = "menuPrice") double menuPrice,
-                                       @RequestParam(name = "menuQuantity") int menuQuantity,
+    public String postRegistrationForm(@RequestParam(name = "menuCategory", defaultValue = "na") String menuCategory,
+                                       @RequestParam(name = "menuName", defaultValue = "na") String menuName,
+                                       @RequestParam(name = "menuPrice", defaultValue = "0.0") double menuPrice,
+                                       @RequestParam(name = "menuQuantity", defaultValue = "0") int menuQuantity,
                                        Model model,
                                        RedirectAttributes redirectAttributes) {
 
-        if (menuCategory == null || menuName == null || menuCategory.isEmpty() || menuName.isEmpty() || menuPrice <= 0 || menuQuantity <= 0) {
+        // Exception handling
+        if (menuCategory.equals("na") || menuName.equals("na") || menuPrice <= 0.0 || menuQuantity <= 0) {
             return "redirect:/admin/menus/register";
         }
 
