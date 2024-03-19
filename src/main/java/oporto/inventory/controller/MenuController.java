@@ -4,7 +4,6 @@ import oporto.inventory.domain.Menu;
 import oporto.inventory.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -53,6 +52,13 @@ public class MenuController {
                                        @RequestParam(name = "menuQuantity") int menuQuantity,
                                        Model model,
                                        RedirectAttributes redirectAttributes) {
+
+        // Check if any required field is empty
+        if (menuCategory.isEmpty() || menuName.isEmpty() || menuPrice <= 0 || menuQuantity <= 0) {
+            // Set registration status to false
+            redirectAttributes.addAttribute("registerStatus", false);
+            return "redirect:/admin/menu/register"; // Redirect to registration form
+        }
 
         Menu menu = new Menu();
         menu.setMenuCategory(menuCategory);
