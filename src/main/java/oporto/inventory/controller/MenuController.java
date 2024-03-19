@@ -54,7 +54,9 @@ public class MenuController {
                                        RedirectAttributes redirectAttributes) {
 
         // Check if any required field is empty
-        if (menuCategory.isEmpty() || menuName.isEmpty() || menuPrice <= 0 || menuQuantity <= 0) {
+        if (menuCategory == null || menuCategory.isEmpty() ||
+                menuName == null || menuName.isEmpty() ||
+                menuPrice <= 0 || menuQuantity <= 0) {
             // Set registration status to false
             redirectAttributes.addAttribute("registerStatus", false);
             return "redirect:/admin/menu/register"; // Redirect to registration form
