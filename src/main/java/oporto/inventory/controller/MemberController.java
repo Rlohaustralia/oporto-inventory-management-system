@@ -29,12 +29,18 @@ public class MemberController {
     }
 
     @PostMapping("/signup") // HTTP GET requests for member registration
-    public String signUp(@RequestParam(name = "memberEmail") String memberEmail,
-                         @RequestParam (name = "memberPassword") String memberPassword,
-                         @RequestParam (name = "memberName") String memberName,
-                         @RequestParam (name = "memberPosition") String memberPosition,
-                         @RequestParam (name = "memberBranch") String memberBranch,
+    public String signUp(@RequestParam(name = "memberEmail", defaultValue = "na") String memberEmail,
+                         @RequestParam (name = "memberPassword", defaultValue = "na") String memberPassword,
+                         @RequestParam (name = "memberName", defaultValue = "na") String memberName,
+                         @RequestParam (name = "memberPosition", defaultValue = "na") String memberPosition,
+                         @RequestParam (name = "memberBranch", defaultValue = "na") String memberBranch,
                          Model model) {
+
+        // Redirect the user back to the signup page if any of the fields are empty
+        if (memberEmail.equals("na") || memberPassword.equals("na") || memberName.equals("na") ||
+                memberPosition.equals("na") || memberBranch.equals("na")) {
+            return "redirect:/signup";
+        }
 
         Member member = new Member();
         member.setMemberEmail(memberEmail);
