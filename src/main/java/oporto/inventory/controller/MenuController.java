@@ -53,7 +53,7 @@ public class MenuController {
                                        Model model,
                                        RedirectAttributes redirectAttributes) {
 
-        // Exception handling
+        // Redirect the user back to the registration page if any of the fields are empty or there is an invalid input
         if (menuCategory.equals("na") || menuName.equals("na") || menuPrice <= 0.0 || menuQuantity <= 0) {
             return "redirect:/admin/menus/register";
         }
@@ -82,12 +82,17 @@ public class MenuController {
 
     @PostMapping("/{menuId}/edit") // HTTP GET requests for editing the form
     public String postEditForm(@PathVariable(name = "menuId") String menuId,
-                               @RequestParam(name = "menuCategory") String menuCategory,
-                               @RequestParam(name = "menuName") String menuName,
-                               @RequestParam(name = "menuPrice") double menuPrice,
-                               @RequestParam(name = "menuQuantity") int menuQuantity,
+                               @RequestParam(name = "menuCategory", defaultValue = "na") String menuCategory,
+                               @RequestParam(name = "menuName", defaultValue = "na") String menuName,
+                               @RequestParam(name = "menuPrice", defaultValue = "0.0") double menuPrice,
+                               @RequestParam(name = "menuQuantity", defaultValue = "0") int menuQuantity,
                                Model model,
                                RedirectAttributes redirectAttributes) {
+
+        // Redirect the user back to the edit page if any of the fields are empty or there is an invalid input
+        if (menuCategory.equals("na") || menuName.equals("na") || menuPrice <= 0.0 || menuQuantity <= 0) {
+            return "redirect:/admin/menus/{menuId}/edit";
+        }
 
         Menu menu = new Menu();
         menu.setMenuCategory(menuCategory);
