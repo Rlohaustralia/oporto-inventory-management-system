@@ -48,15 +48,35 @@ public class MenuController {
     @PostMapping("/register") // HTTP POST requests for the menu registration
     public String postRegistrationForm(@RequestParam(name = "menuCategory") String menuCategory,
                                        @RequestParam(name = "menuName") String menuName,
-                                       @RequestParam(name = "menuPrice") double menuPrice,
-                                       @RequestParam(name = "menuQuantity") int menuQuantity,
+                                       @RequestParam(name = "menuPrice") String menuPriceStr,
+                                       @RequestParam(name = "menuQuantity") String menuQuantityStr,
                                        Model model,
                                        RedirectAttributes redirectAttributes) {
 
         // Check if any required field is empty
         if (menuCategory == null || menuCategory.isEmpty() ||
                 menuName == null || menuName.isEmpty() ||
-                menuPrice <= 0 || menuQuantity <= 0) {
+                menuPriceStr == null || menuPriceStr.isEmpty() ||
+                menuQuantityStr == null || menuQuantityStr.isEmpty()) {
+            // Set registration status to false
+            redirectAttributes.addAttribute("registerStatus", false);
+            return "redirect:/admin/menu/register"; // Redirect to registration form
+        }
+
+        // Convert price and quantity to appropriate data types
+        double menuPrice;
+        int menuQuantity;
+        try {
+            menuPrice = Double.parseDouble(menuPriceStr);
+            menuQuantity = Integer.parseInt(menuQuantityStr);
+        } catch (NumberFormatException e) {
+            // If price or quantity is not a valid number, redirect back to the registration form
+            redirectAttributes.addAttribute("registerStatus", false);
+            return "redirect:/admin/menu/register";
+        }
+
+        // Check if price or quantity is non-positive
+        if (menuPrice <= 0 || menuQuantity <= 0) {
             // Set registration status to false
             redirectAttributes.addAttribute("registerStatus", false);
             return "redirect:/admin/menu/register"; // Redirect to registration form
