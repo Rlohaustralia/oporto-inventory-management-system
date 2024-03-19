@@ -55,6 +55,7 @@ public class MemberController {
 
         // if there is a duplicate email then redirect to signup page
         if (savedMember == null) {
+            model.addAttribute("errorMessage", "Email already exists. Please use a different email.");
             redirectAttributes.addAttribute("duplicateEmail", true);
             return "redirect:/signup";
         }
