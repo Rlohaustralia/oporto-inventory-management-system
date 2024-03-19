@@ -50,6 +50,12 @@ public class MemberController {
         member.setMemberBranch(memberBranch);
 
         Member savedMember = memberRepository.saveMember(member);
+        if (savedMember == null) {
+            // Handle duplicate email scenario, for example, by adding an error message to the model
+            model.addAttribute("errorMessage", "Email already exists. Please use a different email.");
+            return "redirect:/signup";
+        }
+
         model.addAttribute("member",savedMember);
 
         return "redirect:/";

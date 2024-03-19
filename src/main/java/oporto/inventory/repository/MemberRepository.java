@@ -16,6 +16,15 @@ public class MemberRepository {
 
     public Member saveMember(Member member) {
 
+        // Check if the email already exists
+        String existingEmailQuery = "SELECT COUNT(*) FROM member WHERE memberEmail = ?";
+        int count = jdbcTemplate.queryForObject(existingEmailQuery, Integer.class, member.getMemberEmail());
+
+        if (count > 0) {
+            // Redirect or handle duplicate email scenario
+            return null; // For simplicity, returning null to indicate duplicate email
+        }
+
         String generatedId = generatedId(member.getMemberPosition());
         member.setId(generatedId);
         String sql = "INSERT INTO member (id, memberEmail, memberPassword, memberName, memberPosition, memberBranch) VALUES (?, ?, ?, ?, ?, ?)";
