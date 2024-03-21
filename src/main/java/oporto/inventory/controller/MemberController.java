@@ -81,7 +81,7 @@ public class MemberController {
             return "redirect:/admin/menus";
         } else {
             // Fail to log in
-            return "view/login";
+            return "redirect:/signin";
         }
     }
 }
