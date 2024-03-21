@@ -71,8 +71,13 @@ public class MemberController {
     }
 
     @PostMapping("/signin")
-    public String login(@RequestParam (name = "memberEmail") String memberEmail,
-                        @RequestParam (name = "memberPassword") String memberPassword) {
+    public String login(@RequestParam (name = "memberEmail", defaultValue = "na") String memberEmail,
+                        @RequestParam (name = "memberPassword", defaultValue = "na") String memberPassword) {
+
+        // Redirect the user back to the signin page if any of the fields are empty
+        if (memberEmail.equals("na") || memberPassword.equals("na")) {
+            return "redirect:/signin";
+        }
 
         Optional<Member> loggedInMember = memberRepository.login(memberEmail, memberPassword);
 
@@ -81,7 +86,7 @@ public class MemberController {
             return "redirect:/admin/menus";
         } else {
             // Fail to log in
-            return "redirect:/signin";
+            return "view/login";
         }
     }
 }
