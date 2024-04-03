@@ -81,9 +81,17 @@ public class MemberController {
 
         Optional<Member> loggedInMember = memberRepository.login(memberEmail, memberPassword);
 
+        // Success to log in
         if(loggedInMember.isPresent()) {
-            // Success to log in
-            return "redirect:/admin/menus";
+            String memberBranch =  memberRepository.getMemberBranchByEmail(memberEmail);
+
+            // Check if the logged-in member's branch and redirect accordingly
+            if (memberBranch.equalsIgnoreCase("Sydney CBD - George Street")) {
+                return "redirect:/admin/hq/menus";
+            } else {
+                return "view/login";
+            }
+
         } else {
             // Fail to log in
             return "view/login";

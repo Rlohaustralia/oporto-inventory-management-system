@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -43,7 +44,6 @@ public class MemberRepository {
     public Optional<Member> login(String memberEmail, String memberPassword) {
 
         // Retrieve a member from the DB by the email typed by the user.
-
         String sql = "SELECT memberPassword FROM member WHERE memberEmail = ?";
         Member memberInfo = jdbcTemplate.queryForObject(sql,
                 new Object[]{memberEmail},
@@ -56,6 +56,15 @@ public class MemberRepository {
         } else {
             return Optional.empty(); // Passwords don't match or member is null
         }
+    }
+
+    public String getMemberBranchByEmail(String memberEmail) {
+
+        // Retrieve member's branch by the email
+        String sql = "SELECT memberBranch FROM member WHERE memberEmail = ?";
+        String branch = jdbcTemplate.queryForObject(sql, String.class, memberEmail);
+
+        return branch;
     }
 
 

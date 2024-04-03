@@ -18,7 +18,7 @@
 <body>
 <div class="container">
     <div class="py-5 text-center">
-        <h2> EDIT MENU INFORMATION </h2>
+        <h2> Edit Menu Information </h2>
     </div>
     <form action="menu.html" th:action method="post">
         <div class="form-group">
@@ -58,7 +58,7 @@
             <div class="col">
                 <button class="w-100 btn btn-secondary btn-lg"
                         onclick="location.href='menu.html'"
-                        th:onclick="|location.href='@{/admin/menus/{menuId}(menuId=${menu.id})}'|"
+                        th:onclick="|location.href='@{/admin/hq/menus/{menuId}(menuId=${menu.id})}'|"
                         type="button">CANCEL</button>
             </div>
         </div>

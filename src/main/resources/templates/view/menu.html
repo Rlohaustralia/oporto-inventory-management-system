@@ -18,7 +18,7 @@
 <body>
 <div class="container">
     <div class="py-5 text-center">
-        <h2>MENU DETAILS</h2>
+        <h2>Menu Details</h2>
     </div>
     <h4 th:if="${param.registerStatus}" th:text="'Successfully registered!'"></h4>
     <h4 th:if="${param.editStatus}" th:text="'Successfully edited!'"></h4>
@@ -47,19 +47,19 @@
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='editMenu.html'"
-                    th:onclick="|location.href='@{/admin/menus/{menuId}/edit(menuId=${menu.id})}'|" type="button">
+                    th:onclick="|location.href='@{/admin/hq/menus/{menuId}/edit(menuId=${menu.id})}'|" type="button">
                     EDIT </button>
         </div>
         <div class="col">
             <button class="w-100 btn btn-primary btn-lg"
                     onclick="location.href='menus.html'"
-                    th:onclick="|location.href='@{/admin/menus/{menuId}/delete(menuId=${menu.id})}'|" type="button">
+                    th:onclick="|location.href='@{/admin/hq/menus/{menuId}/delete(menuId=${menu.id})}'|" type="button">
                     DELETE </button>
         </div>
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
                     onclick="location.href='menus.html'"
-                    th:onclick="|location.href='@{/admin/menus}'|"
+                    th:onclick="|location.href='@{/admin/hq/menus}'|"
                     type="button"> GO BACK TO LIST</button>
         </div>
     </div>

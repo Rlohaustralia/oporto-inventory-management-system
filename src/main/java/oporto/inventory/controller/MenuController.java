@@ -11,7 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller // A Spring MVC controller
-@RequestMapping("/admin/menus") // Maps the controller to the specified URL path
+@RequestMapping("/admin/hq/menus") // Maps the controller to the specified URL path
 public class MenuController {
 
     private final MenuRepository menuRepository; // Dependency injection for MenuRepository
@@ -55,7 +55,7 @@ public class MenuController {
 
         // Redirect the user back to the registration page if any of the fields are empty or there is an invalid input
         if (menuCategory.equals("na") || menuName.equals("na") || menuPrice <= 0.0 || menuQuantity <= 0) {
-            return "redirect:/admin/menus/register";
+            return "redirect:/admin/hq/menus/register";
         }
 
         Menu menu = new Menu();
@@ -68,7 +68,7 @@ public class MenuController {
         model.addAttribute("menu", menu);
         redirectAttributes.addAttribute("menuId", savedMenu.getId());
         redirectAttributes.addAttribute("registerStatus", true);
-        return "redirect:/admin/menus/{menuId}"; // Redirect (POST -> GET)
+        return "redirect:/admin/hq/menus/{menuId}"; // Redirect (POST -> GET)
     }
 
 
@@ -91,7 +91,7 @@ public class MenuController {
 
         // Redirect the user back to the edit page if any of the fields are empty or there is an invalid input
         if (menuCategory.equals("na") || menuName.equals("na") || menuPrice <= 0.0 || menuQuantity <= 0) {
-            return "redirect:/admin/menus/{menuId}/edit";
+            return "redirect:/admin/hq/menus/{menuId}/edit";
         }
 
         Menu menu = new Menu();
@@ -101,7 +101,7 @@ public class MenuController {
         menu.setMenuQuantity(menuQuantity);
         menuRepository.updateMenu(menuId,menu);
         redirectAttributes.addAttribute("editStatus", true);
-        return "redirect:/admin/menus/{menuId}"; // Redirect (POST -> GET)
+        return "redirect:/admin/hq/menus/{menuId}"; // Redirect (POST -> GET)
     }
 
 
@@ -110,6 +110,6 @@ public class MenuController {
                              RedirectAttributes redirectAttributes) {
         menuRepository.deleteMenu(id);
         redirectAttributes.addAttribute("deleteStatus", true);
-        return "redirect:/admin/menus";
+        return "redirect:/admin/hq/menus";
     }
 }

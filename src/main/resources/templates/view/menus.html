@@ -8,14 +8,14 @@
 <body>
 <div class="container" style="max-width:900px">
     <div class = "py-5 text-center">
-        <h2> MENU LIST </h2>
+        <h2> Headquarters Inventory Overview </h2>
     </div>
     <h4 th:if="${param.deleteStatus}" th:text="'Successfully deleted!'"></h4>
     <div class="row">
         <div class="col">
             <button class = "btn btn-primary float-end"
                     onclick="location.href='menuRegistrationForm.html'"
-                    th:onclick="|location.href='@{/admin/menus/register}'|"
+                    th:onclick="|location.href='@{/admin/hq/menus/register}'|"
                     type="button"> MENU REGISTRATION </button>
         </div>
     </div>
@@ -33,10 +33,10 @@
             </thead>
             <tbody>
             <tr th:each="menu : ${menus}">
-                <td><a href="menu.html" th:href="@{/admin/menus/{menuId} (menuId=${menu.id})}"
+                <td><a href="menu.html" th:href="@{/admin/hq/menus/{menuId} (menuId=${menu.id})}"
                        th:text="${menu.id}">MENU ID</a></td>
                 <td th:text="${menu.menuCategory}">MENU CATEGORY</td>
-                <td><a href="menu.html" th:href="@{|/admin/menus/${menu.id}|}"
+                <td><a href="menu.html" th:href="@{|/admin/hq/menus/${menu.id}|}"
                        th:text="${menu.menuName}">MENU NAME</a></td>
                 <td th:text="${menu.menuPrice}">MENU PRICE</td>
                 <td th:text="${menu.menuQuantity}">MENU QUANTITY</td>
