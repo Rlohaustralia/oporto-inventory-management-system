@@ -86,12 +86,13 @@ public class MemberController {
             String memberBranch =  memberRepository.getMemberBranchByEmail(memberEmail);
 
             // Check if the logged-in member's branch and redirect accordingly
+            // If the logged-in member is from headquarter
             if (memberBranch.equalsIgnoreCase("Headquarter")) {
                 return "redirect:/admin/hq/menus";
             } else {
-                return "view/login";
+                // If the logged-in member is from one of the branches
+                return "redirect:/admin/branch/menus";
             }
-
         } else {
             // Fail to log in
             return "view/login";

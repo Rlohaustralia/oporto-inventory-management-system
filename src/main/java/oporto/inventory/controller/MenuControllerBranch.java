@@ -11,13 +11,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller // A Spring MVC controller
-@RequestMapping("/admin/hq/menus") // Maps the controller to the specified URL path
-public class MenuController {
+@RequestMapping("/admin/branch/menus") // Maps the controller to the specified URL path
+public class MenuControllerBranch {
 
     private final MenuRepository menuRepository; // Dependency injection for MenuRepository
 
     @Autowired
-    public MenuController(MenuRepository menuRepository) {
+    public MenuControllerBranch(MenuRepository menuRepository) {
         this.menuRepository = menuRepository;
     }
 
