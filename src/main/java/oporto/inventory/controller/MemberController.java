@@ -86,7 +86,7 @@ public class MemberController {
             String memberBranch =  memberRepository.getMemberBranchByEmail(memberEmail);
 
             // Check if the logged-in member's branch and redirect accordingly
-            if (memberBranch.equalsIgnoreCase("Sydney CBD - George Street")) {
+            if (memberBranch.equalsIgnoreCase("Headquarter")) {
                 return "redirect:/admin/hq/menus";
             } else {
                 return "view/login";
