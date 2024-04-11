@@ -26,7 +26,7 @@ public class MenuControllerBranch {
     public String menus(Model model) {
         List<Menu> menus = menuRepository.allItem(); // Retrieves all menus from the repository
         model.addAttribute("menus",menus); // Adds the list of menus to the model attribute
-        return "view/menus"; // Return view page
+        return "view/menusBranch"; // Return view page
     }
 
 
@@ -38,38 +38,6 @@ public class MenuControllerBranch {
         return "view/menu";
     }
 
-
-    @GetMapping("/register") // HTTP GET requests for displaying the menu registration form
-    public String getRegistrationForm() {
-        return "view/menuRegistrationForm";
-    }
-
-
-    @PostMapping("/register") // HTTP POST requests for the menu registration
-    public String postRegistrationForm(@RequestParam(name = "menuCategory", defaultValue = "na") String menuCategory,
-                                       @RequestParam(name = "menuName", defaultValue = "na") String menuName,
-                                       @RequestParam(name = "menuPrice", defaultValue = "0.0") double menuPrice,
-                                       @RequestParam(name = "menuQuantity", defaultValue = "0") int menuQuantity,
-                                       Model model,
-                                       RedirectAttributes redirectAttributes) {
-
-        // Redirect the user back to the registration page if any of the fields are empty or there is an invalid input
-        if (menuCategory.equals("na") || menuName.equals("na") || menuPrice <= 0.0 || menuQuantity <= 0) {
-            return "redirect:/admin/hq/menus/register";
-        }
-
-        Menu menu = new Menu();
-        menu.setMenuCategory(menuCategory);
-        menu.setMenuName(menuName);
-        menu.setMenuPrice(menuPrice);
-        menu.setMenuQuantity(menuQuantity);
-
-        Menu savedMenu = menuRepository.saveMenu(menu);
-        model.addAttribute("menu", menu);
-        redirectAttributes.addAttribute("menuId", savedMenu.getId());
-        redirectAttributes.addAttribute("registerStatus", true);
-        return "redirect:/admin/hq/menus/{menuId}"; // Redirect (POST -> GET)
-    }
 
 
     @GetMapping("/{menuId}/edit") // HTTP GET requests for displaying the edit form
