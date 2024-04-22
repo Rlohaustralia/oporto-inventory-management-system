@@ -72,7 +72,8 @@ public class MemberController {
 
     @PostMapping("/signin")
     public String login(@RequestParam (name = "memberEmail", defaultValue = "na") String memberEmail,
-                        @RequestParam (name = "memberPassword", defaultValue = "na") String memberPassword) {
+                        @RequestParam (name = "memberPassword", defaultValue = "na") String memberPassword,
+                        RedirectAttributes redirectAttributes) {
 
         // Redirect the user back to the signin page if any of the fields are empty
         if (memberEmail.equals("na") || memberPassword.equals("na")) {
@@ -91,7 +92,8 @@ public class MemberController {
                 return "redirect:/admin/hq/menus";
             } else {
                 // If the logged-in member is from one of the branches
-                return "redirect:/admin/branch/menus";
+                redirectAttributes.addAttribute("memberBranch", memberBranch);
+                return "redirect:/admin/branch/{memberBranch}/menus";
             }
         } else {
             // Fail to log in

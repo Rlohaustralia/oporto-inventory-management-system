@@ -1,6 +1,8 @@
 package oporto.inventory.controller;
 
+import oporto.inventory.domain.Member;
 import oporto.inventory.domain.Menu;
+import oporto.inventory.repository.MemberRepository;
 import oporto.inventory.repository.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,26 +13,28 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller // A Spring MVC controller
-@RequestMapping("/admin/branch/menus") // Maps the controller to the specified URL path
+@RequestMapping("/admin/branch/{memberBranch}/menus") // Maps the controller to the specified URL path
 public class MenuControllerBranch {
 
     private final MenuRepository menuRepository; // Dependency injection for MenuRepository
 
+
     @Autowired
-    public MenuControllerBranch(MenuRepository menuRepository) {
+    public MenuControllerBranch(MenuRepository menuRepository, MemberRepository memberRepository) {
         this.menuRepository = menuRepository;
     }
 
 
     @GetMapping // HTTP GET requests for displaying menus
-    public String menus(Model model) {
+    public String menus(@PathVariable(name = "memberBranch") String branch, Model model) {
         List<Menu> menus = menuRepository.allItem(); // Retrieves all menus from the repository
+        model.addAttribute("branch",branch);
         model.addAttribute("menus",menus); // Adds the list of menus to the model attribute
         return "view/menusBranch"; // Return view page
     }
 
 
-    @GetMapping("/{menuId}") // HTTP GET requests for displaying menu details
+    @GetMapping("/menus/{menuId}") // HTTP GET requests for displaying menu details
     public String menu(@PathVariable(name="menuId") String id, Model model) {
         // The menuId is extracted from the URL path using @PathVariable annotation
         Menu menu = menuRepository.searchMenuById(id);
@@ -40,7 +44,7 @@ public class MenuControllerBranch {
 
 
 
-    @GetMapping("/{menuId}/edit") // HTTP GET requests for displaying the edit form
+    @GetMapping("/menus/{menuId}/edit") // HTTP GET requests for displaying the edit form
     public String getEditForm(@PathVariable(name = "menuId") String menuId, Model model) {
         Menu menu = menuRepository.searchMenuById(menuId);
         model.addAttribute("menu", menu);
@@ -48,7 +52,7 @@ public class MenuControllerBranch {
     }
 
 
-    @PostMapping("/{menuId}/edit") // HTTP GET requests for editing the form
+    @PostMapping("/menus/{menuId}/edit") // HTTP GET requests for editing the form
     public String postEditForm(@PathVariable(name = "menuId") String menuId,
                                @RequestParam(name = "menuCategory", defaultValue = "na") String menuCategory,
                                @RequestParam(name = "menuName", defaultValue = "na") String menuName,
@@ -73,7 +77,7 @@ public class MenuControllerBranch {
     }
 
 
-    @GetMapping("/{menuId}/delete") // HTTP GET requests for deleting the item
+    @GetMapping("/menus/{menuId}/delete") // HTTP GET requests for deleting the item
     public String deleteMenu(@PathVariable(name = "menuId") String id,
                              RedirectAttributes redirectAttributes) {
         menuRepository.deleteMenu(id);

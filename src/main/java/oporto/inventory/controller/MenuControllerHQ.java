@@ -30,7 +30,7 @@ public class MenuControllerHQ {
     }
 
 
-    @GetMapping("/{menuId}") // HTTP GET requests for displaying menu details
+    @GetMapping("/menus/{menuId}") // HTTP GET requests for displaying menu details
     public String menu(@PathVariable(name="menuId") String id, Model model) {
         // The menuId is extracted from the URL path using @PathVariable annotation
         Menu menu = menuRepository.searchMenuById(id);
@@ -39,13 +39,13 @@ public class MenuControllerHQ {
     }
 
 
-    @GetMapping("/register") // HTTP GET requests for displaying the menu registration form
+    @GetMapping("/menus/register") // HTTP GET requests for displaying the menu registration form
     public String getRegistrationForm() {
         return "view/menuRegistrationForm";
     }
 
 
-    @PostMapping("/register") // HTTP POST requests for the menu registration
+    @PostMapping("/menus/register") // HTTP POST requests for the menu registration
     public String postRegistrationForm(@RequestParam(name = "menuCategory", defaultValue = "na") String menuCategory,
                                        @RequestParam(name = "menuName", defaultValue = "na") String menuName,
                                        @RequestParam(name = "menuPrice", defaultValue = "0.0") double menuPrice,
@@ -72,7 +72,7 @@ public class MenuControllerHQ {
     }
 
 
-    @GetMapping("/{menuId}/edit") // HTTP GET requests for displaying the edit form
+    @GetMapping("/menus/{menuId}/edit") // HTTP GET requests for displaying the edit form
     public String getEditForm(@PathVariable(name = "menuId") String menuId, Model model) {
         Menu menu = menuRepository.searchMenuById(menuId);
         model.addAttribute("menu", menu);
@@ -80,7 +80,7 @@ public class MenuControllerHQ {
     }
 
 
-    @PostMapping("/{menuId}/edit") // HTTP GET requests for editing the form
+    @PostMapping("/menus/{menuId}/edit") // HTTP GET requests for editing the form
     public String postEditForm(@PathVariable(name = "menuId") String menuId,
                                @RequestParam(name = "menuCategory", defaultValue = "na") String menuCategory,
                                @RequestParam(name = "menuName", defaultValue = "na") String menuName,
@@ -105,7 +105,7 @@ public class MenuControllerHQ {
     }
 
 
-    @GetMapping("/{menuId}/delete") // HTTP GET requests for deleting the item
+    @GetMapping("/menus/{menuId}/delete") // HTTP GET requests for deleting the item
     public String deleteMenu(@PathVariable(name = "menuId") String id,
                              RedirectAttributes redirectAttributes) {
         menuRepository.deleteMenu(id);

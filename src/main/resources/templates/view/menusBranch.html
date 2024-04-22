@@ -7,11 +7,32 @@
 </head>
 <body>
 <div class="container" style="max-width:900px">
-    <div class = "py-5 text-center">
-        <h2> Headquarters Inventory Overview </h2>
+    <div class="py-5 text-center">
+        <h2>Branch Inventory Overview</h2>
+        <h3 th:text="${branch}"></h3>
+<!--        <h3 th:switch="${member.memberBranch}">-->
+<!--            <h3 th:case="'Sydney CBD - George Street'">Sydney CBD - George Street</h3>-->
+<!--            <h3 th:case="'Melbourne CBD - Swanston Street'">Melbourne CBD - Swanston Street</h3>-->
+<!--            <h3 th:case="'Brisbane CBD - Queen Street Mall'">Brisbane CBD - Queen Street Mall</h3>-->
+<!--            <h3 th:case="'Perth CBD - Murray Street Mall'">Perth CBD - Murray Street Mall</h3>-->
+<!--            <h3 th:case="'Adelaide CBD - Rundle Mall'">Adelaide CBD - Rundle Mall</h3>-->
+<!--            <h3 th:case="'Gold Coast - Surfers Paradise'">Gold Coast - Surfers Paradise</h3>-->
+<!--            <h3 th:case="'Canberra CBD - City Centre'">Canberra CBD - City Centre</h3>-->
+<!--            <h3 th:case="'Newcastle - Westfield Kotara'">Newcastle - Westfield Kotara</h3>-->
+<!--            <h3 th:case="'Wollongong - Crown Street Mall'">Wollongong - Crown Street Mall</h3>-->
+<!--            <h3 th:case="'Hobart - Liverpool Street'">Hobart - Liverpool Street</h3>-->
+<!--        </h3>-->
     </div>
-    <h4 th:if="${param.deleteStatus}" th:text="'Successfully deleted!'"></h4>
 
+    <h4 th:if="${param.deleteStatus}" th:text="'Successfully deleted!'"></h4>
+    <div class="row">
+        <div class="col">
+            <button class = "btn btn-primary float-end"
+                    onclick="location.href='menuRegistrationForm.html'"
+                    th:onclick="|location.href='@{/admin/hq/menus/register}'|"
+                    type="button"> Place Order from HQ </button>
+        </div>
+    </div>
     <hr class ="my-4">
     <div>
         <table class ="table">
@@ -22,6 +43,7 @@
                 <th>MENU NAME</th>
                 <th>MENU PRICE (AUD)</th>
                 <th>MENU QUANTITY</th>
+                <th>HQ Stock Availability</th>
             </tr>
             </thead>
             <tbody>
@@ -33,6 +55,7 @@
                        th:text="${menu.menuName}">MENU NAME</a></td>
                 <td th:text="${menu.menuPrice}">MENU PRICE</td>
                 <td th:text="${menu.menuQuantity}">MENU QUANTITY</td>
+                <td th:text="${menu.menuQuantity}">HQ Stock Availability</td>
             </tr>
             </tbody>
         </table>
