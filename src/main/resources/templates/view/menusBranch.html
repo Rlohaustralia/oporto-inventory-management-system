@@ -10,18 +10,6 @@
     <div class="py-5 text-center">
         <h2>Branch Inventory Overview</h2>
         <h3 th:text="${branch}"></h3>
-<!--        <h3 th:switch="${member.memberBranch}">-->
-<!--            <h3 th:case="'Sydney CBD - George Street'">Sydney CBD - George Street</h3>-->
-<!--            <h3 th:case="'Melbourne CBD - Swanston Street'">Melbourne CBD - Swanston Street</h3>-->
-<!--            <h3 th:case="'Brisbane CBD - Queen Street Mall'">Brisbane CBD - Queen Street Mall</h3>-->
-<!--            <h3 th:case="'Perth CBD - Murray Street Mall'">Perth CBD - Murray Street Mall</h3>-->
-<!--            <h3 th:case="'Adelaide CBD - Rundle Mall'">Adelaide CBD - Rundle Mall</h3>-->
-<!--            <h3 th:case="'Gold Coast - Surfers Paradise'">Gold Coast - Surfers Paradise</h3>-->
-<!--            <h3 th:case="'Canberra CBD - City Centre'">Canberra CBD - City Centre</h3>-->
-<!--            <h3 th:case="'Newcastle - Westfield Kotara'">Newcastle - Westfield Kotara</h3>-->
-<!--            <h3 th:case="'Wollongong - Crown Street Mall'">Wollongong - Crown Street Mall</h3>-->
-<!--            <h3 th:case="'Hobart - Liverpool Street'">Hobart - Liverpool Street</h3>-->
-<!--        </h3>-->
     </div>
 
     <h4 th:if="${param.deleteStatus}" th:text="'Successfully deleted!'"></h4>
@@ -38,25 +26,26 @@
         <table class ="table">
             <thead>
             <tr>
+                <th>INVENTORY ID</th>
                 <th>MENU ID</th>
                 <th>MENU CATEGORY</th>
                 <th>MENU NAME</th>
                 <th>MENU PRICE (AUD)</th>
-                <th>MENU QUANTITY</th>
-                <th>HQ Stock Availability</th>
+                <th>BRANCH QUANTITY</th>
+                <th>HQ QUANTITY</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="menu : ${menus}">
-                <td><a href="menu.html" th:href="@{/admin/hq/menus/{menuId} (menuId=${menu.id})}"
-                       th:text="${menu.id}">MENU ID</a></td>
-                <td th:text="${menu.menuCategory}">MENU CATEGORY</td>
-                <td><a href="menu.html" th:href="@{|/admin/hq/menus/${menu.id}|}"
-                       th:text="${menu.menuName}">MENU NAME</a></td>
-                <td th:text="${menu.menuPrice}">MENU PRICE</td>
-                <td th:text="${menu.menuQuantity}">MENU QUANTITY</td>
-                <td th:text="${menu.menuQuantity}">HQ Stock Availability</td>
-            </tr>
+<!--            <tr th:each="menu : ${menus}">-->
+<!--                <td th:text="${menu.id}">INVENTORY ID</td>-->
+<!--                <td><a href="menu.html" th:href="@{/admin/hq/menus/{menuId} (menuId=${menu.id})}"-->
+<!--                       th:text="${menu.id}">MENU ID</a></td>-->
+<!--                <td th:text="${menu.menuCategory}">MENU CATEGORY</td>-->
+<!--                <td th:text="${menu.menuName}">MENU NAME</td>-->
+<!--                <td th:text="${menu.menuPrice}">MENU PRICE</td>-->
+<!--                <td th:text="${menu.menuQuantity}">BRANCH QUANTITY</td>-->
+<!--                <td th:text="${menu.menuQuantity}">HQ QUANTITY</td>-->
+<!--            </tr>-->
             </tbody>
         </table>
     </div>
