@@ -52,6 +52,18 @@
             </tbody>
         </table>
     </div>
+    <hr class="my-4">
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg">
+                SUBMIT </button>
+        </div>
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg"
+                    th:onclick="|location.href='@{/admin/branch/{memberBranch}/menus}'|"
+                    type="button"> CANCEL </button>
+        </div>
+    </div>
 
 </body>
 </html>
