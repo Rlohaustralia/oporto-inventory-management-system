@@ -15,10 +15,13 @@
     <h4 th:if="${param.deleteStatus}" th:text="'Successfully deleted!'"></h4>
     <div class="row">
         <div class="col">
-            <button class = "btn btn-primary float-end"
-                    onclick="location.href='menuRegistrationForm.html'"
-                    th:onclick="|location.href='@{/admin/hq/menus/register}'|"
-                    type="button"> Place Order from HQ </button>
+            <button class="btn btn-primary float-end"
+                    th:if="${memberBranch}"
+                    th:onclick="|location.href='@{/admin/branch/{memberBranch}/menus/order(memberBranch=${memberBranch})}'|"
+                    type="button">
+                Place Order from Branch
+            </button>
+
         </div>
     </div>
     <hr class ="my-4">

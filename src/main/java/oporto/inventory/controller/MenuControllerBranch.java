@@ -33,6 +33,10 @@ public class MenuControllerBranch {
         return "view/menusBranch"; // Return view page
     }
 
+    @GetMapping("/order") // HTTP GET requests for displaying the order form
+    public String getOrderForm() {
+        return "view/orderForm";
+    }
 
     @GetMapping("/menus/{menuId}") // HTTP GET requests for displaying menu details
     public String menu(@PathVariable(name="menuId") String id, Model model) {
