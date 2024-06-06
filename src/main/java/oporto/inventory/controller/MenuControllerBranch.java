@@ -34,7 +34,9 @@ public class MenuControllerBranch {
     }
 
     @GetMapping("/order") // HTTP GET requests for displaying the order form
-    public String getOrderForm() {
+    public String getOrderForm(Model model) {
+        List<Menu> menus = menuRepository.allItem(); // Retrieves all menus from the repository
+        model.addAttribute("menus",menus); // Adds the list of menus to the model attribute
         return "view/orderForm";
     }
 

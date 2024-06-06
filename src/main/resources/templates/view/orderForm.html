@@ -1,10 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Order Form</title>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 1290px;
+            margin: auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-<h1>Hello</h1>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>
+            Order Form
+        </h2>
+    </div>
+    <div style="text-align: center;">
+        <img src="/images/order_img.jpeg" alt="Order Form Image" width="200">
+    </div>
+    <h6> * Please select a menu item and enter the quantity to order</h6>
+    <div>
+        <table class ="table">
+            <thead>
+            <tr>
+                <th>SELECT</th>
+                <th>MENU ID</th>
+                <th>MENU CATEGORY</th>
+                <th>MENU NAME</th>
+                <th>HQ QUANTITY</th>
+                <th>BRANCH QUANTITY</th>
+                <th>ORDER QUANTITY</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="menu : ${menus}">
+                <td><input type="checkbox" name="selectedMenus" th:value="${menu.id}"></td>
+                <td th:text="${menu.id}">MENU ID</td>
+                <td th:text="${menu.menuCategory}">MENU CATEGORY</td>
+                <td th:text="${menu.menuName}">MENU NAME</td>
+                <td th:text="${menu.menuQuantity}">HQ QUANTITY</td>
+                <td th:text="${menu.menuQuantity}">BRANCH QUANTITY</td>
+                <td><input type="number" name="orderQuantities[__${menu.id}__]" value="0" min="0" th:max="${menu.menuQuantity}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </body>
 </html>
