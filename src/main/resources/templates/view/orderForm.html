@@ -6,13 +6,20 @@
           th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <style>
         .container {
-            max-width: 1290px;
+            max-width: 1920px;
             margin: auto;
             padding: 20px;
         }
         .form-group {
             margin-bottom: 20px;
         }
+        .low-stock {
+            color: red;
+        }
+        .normal-stock {
+            color: blue;
+        }
+
     </style>
 </head>
 <body>
@@ -26,11 +33,14 @@
         <img src="/images/order_img.jpeg" alt="Order Form Image" width="200">
     </div>
     <h6> * Please select a menu item and enter the quantity to order</h6>
+    <h6> * The branch quantities lower than 20 are recommended for ordering</h6>
     <div>
         <table class ="table">
             <thead>
             <tr>
                 <th>SELECT</th>
+                <th>BRANCH ID</th>
+                <th>BRANCH NAME</th>
                 <th>MENU ID</th>
                 <th>MENU CATEGORY</th>
                 <th>MENU NAME</th>
@@ -40,13 +50,16 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="menu : ${menus}">
+            <tr th:each="menu, iterStat : ${menus}">
                 <td><input type="checkbox" name="selectedMenus" th:value="${menu.id}"></td>
+                <td th:text="${branchId}">BRANCH ID</td>
+                <td th:text="${branchName}">BRANCH NAME</td>
                 <td th:text="${menu.id}">MENU ID</td>
                 <td th:text="${menu.menuCategory}">MENU CATEGORY</td>
                 <td th:text="${menu.menuName}">MENU NAME</td>
                 <td th:text="${menu.menuQuantity}">HQ QUANTITY</td>
-                <td th:text="${menu.menuQuantity}">BRANCH QUANTITY</td>
+                <td th:classappend="${branchMenuQuantities[iterStat.index] < 20 ? 'low-stock' : 'normal-stock'}"
+                    th:text="${branchMenuQuantities[iterStat.index]}">BRANCH QUANTITY</td>
                 <td><input type="number" name="orderQuantities[__${menu.id}__]" value="0" min="0" th:max="${menu.menuQuantity}"></td>
             </tr>
             </tbody>
@@ -59,11 +72,11 @@
                 SUBMIT </button>
         </div>
         <div class="col">
-            <button class="w-100 btn btn-secondary btn-lg"
-                    th:onclick="|location.href='@{/admin/branch/{memberBranch}/menus}'|"
-                    type="button"> CANCEL </button>
+            <a th:href="@{'/admin/branch/' + ${branchName} + '/menus'}" class="w-100 btn btn-secondary btn-lg">
+                CANCEL
+            </a>
         </div>
-    </div>
 
+    </div>
 </body>
 </html>

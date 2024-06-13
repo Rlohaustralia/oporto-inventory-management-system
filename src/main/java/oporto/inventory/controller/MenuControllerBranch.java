@@ -1,15 +1,16 @@
 package oporto.inventory.controller;
 
-import oporto.inventory.domain.Member;
+
 import oporto.inventory.domain.Menu;
 import oporto.inventory.repository.MemberRepository;
 import oporto.inventory.repository.MenuRepository;
+import oporto.inventory.repository.MenuRepositoryBranch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller // A Spring MVC controller
@@ -17,77 +18,71 @@ import java.util.List;
 public class MenuControllerBranch {
 
     private final MenuRepository menuRepository; // Dependency injection for MenuRepository
+    private final MenuRepositoryBranch menuRepositoryBranch; // Dependency injection for MenuRepositoryBranch
 
 
     @Autowired
-    public MenuControllerBranch(MenuRepository menuRepository, MemberRepository memberRepository) {
+    public MenuControllerBranch(MenuRepository menuRepository, MenuRepositoryBranch menuRepositoryBranch) {
         this.menuRepository = menuRepository;
+        this.menuRepositoryBranch = menuRepositoryBranch;
     }
 
 
     @GetMapping // HTTP GET requests for displaying menus
-    public String menus(@PathVariable(name = "memberBranch") String branch, Model model) {
-        List<Menu> menus = menuRepository.allItem(); // Retrieves all menus from the repository
-        model.addAttribute("branch",branch);
-        model.addAttribute("menus",menus); // Adds the list of menus to the model attribute
+    public String menus(@PathVariable(name = "memberBranch") String branchName, Model model) {
+
+        // Retrieve all menus
+        List<Menu> menus = menuRepository.allItem();
+
+        // Retrieve branch ID using branch name
+        String branchId = menuRepositoryBranch.getBranchId(branchName);
+
+        // Retrieve branch menu quantities for each menu
+        List<Integer> branchMenuQuantities = new ArrayList<>();
+        for (Menu menu : menus) {
+            String menuId = menu.getId();
+            int branchMenuQuantity = menuRepositoryBranch.getBranchMenuQuantity(branchId, menuId);
+            branchMenuQuantities.add(branchMenuQuantity);
+        }
+
+        // Add attributes to model for the order form view
+        model.addAttribute("menus", menus);
+        model.addAttribute("branchId", branchId);
+        model.addAttribute("branchName", branchName);
+        model.addAttribute("branchMenuQuantities", branchMenuQuantities);
         return "view/menusBranch"; // Return view page
     }
 
-    @GetMapping("/order") // HTTP GET requests for displaying the order form
-    public String getOrderForm(Model model) {
-        List<Menu> menus = menuRepository.allItem(); // Retrieves all menus from the repository
-        model.addAttribute("menus",menus); // Adds the list of menus to the model attribute
-        return "view/orderForm";
-    }
 
-    @GetMapping("/menus/{menuId}") // HTTP GET requests for displaying menu details
-    public String menu(@PathVariable(name="menuId") String id, Model model) {
-        // The menuId is extracted from the URL path using @PathVariable annotation
-        Menu menu = menuRepository.searchMenuById(id);
-        model.addAttribute("menu", menu);
-        return "view/menu";
-    }
+    @GetMapping("/order")
+    public String getOrderForm(@PathVariable(name = "memberBranch") String branchName, Model model) {
 
+        // Retrieve all menus
+        List<Menu> menus = menuRepository.allItem();
 
+        // Retrieve branch ID using branch name
+        String branchId = menuRepositoryBranch.getBranchId(branchName);
 
-    @GetMapping("/menus/{menuId}/edit") // HTTP GET requests for displaying the edit form
-    public String getEditForm(@PathVariable(name = "menuId") String menuId, Model model) {
-        Menu menu = menuRepository.searchMenuById(menuId);
-        model.addAttribute("menu", menu);
-        return "view/editMenu";
-    }
-
-
-    @PostMapping("/menus/{menuId}/edit") // HTTP GET requests for editing the form
-    public String postEditForm(@PathVariable(name = "menuId") String menuId,
-                               @RequestParam(name = "menuCategory", defaultValue = "na") String menuCategory,
-                               @RequestParam(name = "menuName", defaultValue = "na") String menuName,
-                               @RequestParam(name = "menuPrice", defaultValue = "0.0") double menuPrice,
-                               @RequestParam(name = "menuQuantity", defaultValue = "0") int menuQuantity,
-                               Model model,
-                               RedirectAttributes redirectAttributes) {
-
-        // Redirect the user back to the edit page if any of the fields are empty or there is an invalid input
-        if (menuCategory.equals("na") || menuName.equals("na") || menuPrice <= 0.0 || menuQuantity <= 0) {
-            return "redirect:/admin/hq/menus/{menuId}/edit";
+        // Retrieve branch menu quantities for each menu
+        List<Integer> branchMenuQuantities = new ArrayList<>();
+        for (Menu menu : menus) {
+            String menuId = menu.getId();
+            int branchMenuQuantity = menuRepositoryBranch.getBranchMenuQuantity(branchId, menuId);
+            branchMenuQuantities.add(branchMenuQuantity);
         }
 
-        Menu menu = new Menu();
-        menu.setMenuCategory(menuCategory);
-        menu.setMenuName(menuName);
-        menu.setMenuPrice(menuPrice);
-        menu.setMenuQuantity(menuQuantity);
-        menuRepository.updateMenu(menuId,menu);
-        redirectAttributes.addAttribute("editStatus", true);
-        return "redirect:/admin/hq/menus/{menuId}"; // Redirect (POST -> GET)
+        // Add attributes to model for the order form view
+        model.addAttribute("menus", menus);
+        model.addAttribute("branchId", branchId);
+        model.addAttribute("branchName", branchName);
+        model.addAttribute("branchMenuQuantities", branchMenuQuantities);
+
+        return "view/orderForm"; // Return order form view
     }
 
+//    @PostMapping("/order")
+//    public String postOrderForm() {
+//        return "view/orderConfirmation";
+//    }
 
-    @GetMapping("/menus/{menuId}/delete") // HTTP GET requests for deleting the item
-    public String deleteMenu(@PathVariable(name = "menuId") String id,
-                             RedirectAttributes redirectAttributes) {
-        menuRepository.deleteMenu(id);
-        redirectAttributes.addAttribute("deleteStatus", true);
-        return "redirect:/admin/hq/menus";
-    }
 }

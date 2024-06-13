@@ -12,14 +12,19 @@ public class Orders {
     private String id;
     private String branchId;
     private String menuId;
+    private String menuCategory;
+    private int hqQuantity;
     private int orderQuantity;
     private Timestamp orderDate;
 
-    public Orders(String branchId, String menuId, int orderQuantity, Timestamp orderDate) {
+    public Orders(String branchId, String menuId, String menuCategory, int hqQuantity, int orderQuantity) {
+        // Order details
         this.branchId = branchId;
         this.menuId = menuId;
+        this.menuCategory = menuCategory;
+        this.hqQuantity = hqQuantity;
         this.orderQuantity = orderQuantity;
-        this.orderDate = orderDate;
+        this.orderDate = new Timestamp(System.currentTimeMillis());
     }
 }
 

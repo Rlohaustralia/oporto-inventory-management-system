@@ -80,7 +80,7 @@ public class MenuControllerHQ {
     }
 
 
-    @PostMapping("/{menuId}/edit") // HTTP GET requests for editing the form
+    @PostMapping("/{menuId}/edit") // HTTP POST requests for editing the form
     public String postEditForm(@PathVariable(name = "menuId") String menuId,
                                @RequestParam(name = "menuCategory", defaultValue = "na") String menuCategory,
                                @RequestParam(name = "menuName", defaultValue = "na") String menuName,

@@ -6,29 +6,33 @@
           th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <style>
         .container {
-            max-width: 1290px;
+            max-width: 1920px;
             margin: auto;
             padding: 20px;
         }
         .form-group {
             margin-bottom: 20px;
         }
+        .low-stock {
+            color: red;
+        }
+        .normal-stock {
+            color: blue;
+        }
     </style>
 </head>
 <body>
-<div class="container" style="max-width:900px">
+<div class="container">
     <div class="py-5 text-center">
         <h2>Branch Inventory Overview</h2>
-        <h3 th:text="${branch}"></h3>
+        <h3 th:text="${branchName}"></h3>
     </div>
-
-    <h4 th:if="${param.deleteStatus}" th:text="'Successfully deleted!'"></h4>
     <div class="row">
         <div class="col">
             <button class="btn btn-primary float-end"
                     th:if="${memberBranch}"
-                    th:onclick="|location.href='@{/admin/branch/{memberBranch}/menus/order(memberBranch=${memberBranch})}'|"
-                    type="button"> Place Order from HQ
+                    th:onclick="|location.href='@{/admin/branch/{branchName}/menus/order(branchName=${branchName})}'|"
+                    type="button"> Place order from HQ
             </button>
 
         </div>
@@ -44,21 +48,22 @@
                 <th>MENU CATEGORY</th>
                 <th>MENU NAME</th>
                 <th>MENU PRICE (AUD)</th>
-                <th>BRANCH QUANTITY</th>
                 <th>HQ QUANTITY</th>
+                <th>BRANCH QUANTITY</th>
             </tr>
             </thead>
             <tbody>
-<!--            <tr th:each="menu : ${menus}">-->
-<!--                <td th:text="${menu.id}">INVENTORY ID</td>-->
-<!--                <td><a href="menu.html" th:href="@{/admin/hq/menus/{menuId} (menuId=${menu.id})}"-->
-<!--                       th:text="${menu.id}">MENU ID</a></td>-->
-<!--                <td th:text="${menu.menuCategory}">MENU CATEGORY</td>-->
-<!--                <td th:text="${menu.menuName}">MENU NAME</td>-->
-<!--                <td th:text="${menu.menuPrice}">MENU PRICE</td>-->
-<!--                <td th:text="${menu.menuQuantity}">BRANCH QUANTITY</td>-->
-<!--                <td th:text="${menu.menuQuantity}">HQ QUANTITY</td>-->
-<!--            </tr>-->
+            <tr th:each="menu, iterStat : ${menus}">
+                <td th:text="${branchId}">BRANCH ID</td>
+                <td th:text="${branchName}">BRANCH NAME</td>
+                <td th:text="${menu.id}">MENU ID</td>
+                <td th:text="${menu.menuCategory}">MENU CATEGORY</td>
+                <td th:text="${menu.menuName}">MENU NAME</td>
+                <td th:text="${menu.menuPrice}">MENU PRICE(AUD)</td>
+                <td th:text="${menu.menuQuantity}">HQ QUANTITY</td>
+                <td th:classappend="${branchMenuQuantities[iterStat.index] < 20 ? 'low-stock' : 'normal-stock'}"
+                    th:text="${branchMenuQuantities[iterStat.index]}">BRANCH QUANTITY</td>
+            </tr>
             </tbody>
         </table>
     </div>
