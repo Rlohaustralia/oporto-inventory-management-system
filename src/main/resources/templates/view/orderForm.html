@@ -2,8 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <link href="../css/bootstrap.min.css"
-          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <style>
         .container {
             max-width: 1920px;
@@ -19,15 +18,12 @@
         .normal-stock {
             color: blue;
         }
-
     </style>
 </head>
 <body>
 <div class="container">
     <div class="py-5 text-center">
-        <h2>
-            Order Form
-        </h2>
+        <h2>Order Form</h2>
     </div>
     <div style="text-align: center;">
         <img src="/images/order_img.jpeg" alt="Order Form Image" width="200">
@@ -35,48 +31,47 @@
     <h6> * Please select a menu item and enter the quantity to order</h6>
     <h6> * The branch quantities lower than 20 are recommended for ordering</h6>
     <div>
-        <table class ="table">
-            <thead>
-            <tr>
-                <th>SELECT</th>
-                <th>BRANCH ID</th>
-                <th>BRANCH NAME</th>
-                <th>MENU ID</th>
-                <th>MENU CATEGORY</th>
-                <th>MENU NAME</th>
-                <th>HQ QUANTITY</th>
-                <th>BRANCH QUANTITY</th>
-                <th>ORDER QUANTITY</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="menu, iterStat : ${menus}">
-                <td><input type="checkbox" name="selectedMenus" th:value="${menu.id}"></td>
-                <td th:text="${branchId}">BRANCH ID</td>
-                <td th:text="${branchName}">BRANCH NAME</td>
-                <td th:text="${menu.id}">MENU ID</td>
-                <td th:text="${menu.menuCategory}">MENU CATEGORY</td>
-                <td th:text="${menu.menuName}">MENU NAME</td>
-                <td th:text="${menu.menuQuantity}">HQ QUANTITY</td>
-                <td th:classappend="${branchMenuQuantities[iterStat.index] < 20 ? 'low-stock' : 'normal-stock'}"
-                    th:text="${branchMenuQuantities[iterStat.index]}">BRANCH QUANTITY</td>
-                <td><input type="number" name="orderQuantities[__${menu.id}__]" value="0" min="0" th:max="${menu.menuQuantity}"></td>
-            </tr>
-            </tbody>
-        </table>
+        <form th:action="@{'/admin/branch/' + ${branchName} + '/menus/order'}" method="post">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>SELECT</th>
+                    <th>BRANCH ID</th>
+                    <th>BRANCH NAME</th>
+                    <th>MENU ID</th>
+                    <th>MENU CATEGORY</th>
+                    <th>MENU NAME</th>
+                    <th>HQ QUANTITY</th>
+                    <th>BRANCH QUANTITY</th>
+                    <th>ORDER QUANTITY</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="menu, iterStat : ${menus}">
+                    <td><input type="checkbox" name="selectedMenus" th:value="${menu.id}"></td>
+                    <td th:text="${branchId}">BRANCH ID</td>
+                    <td th:text="${branchName}">BRANCH NAME</td>
+                    <td th:text="${menu.id}">MENU ID</td>
+                    <td th:text="${menu.menuCategory}">MENU CATEGORY</td>
+                    <td th:text="${menu.menuName}">MENU NAME</td>
+                    <td th:text="${menu.menuQuantity}">HQ QUANTITY</td>
+                    <td th:classappend="${branchMenuQuantities[iterStat.index] < 20 ? 'low-stock' : 'normal-stock'}"
+                        th:text="${branchMenuQuantities[iterStat.index]}">BRANCH QUANTITY</td>
+                    <td><input type="number" name="orderQuantities[__${menu.id}__]" value="0" min="0" th:max="${menu.menuQuantity}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col">
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">SUBMIT</button>
+                </div>
+                <div class="col">
+                    <a th:href="@{'/admin/branch/' + ${branchName} + '/menus'}" class="w-100 btn btn-secondary btn-lg">CANCEL</a>
+                </div>
+            </div>
+        </form>
     </div>
-    <hr class="my-4">
-    <div class="row">
-        <div class="col">
-            <button class="w-100 btn btn-primary btn-lg">
-                SUBMIT </button>
-        </div>
-        <div class="col">
-            <a th:href="@{'/admin/branch/' + ${branchName} + '/menus'}" class="w-100 btn btn-secondary btn-lg">
-                CANCEL
-            </a>
-        </div>
-
-    </div>
+</div>
 </body>
 </html>
