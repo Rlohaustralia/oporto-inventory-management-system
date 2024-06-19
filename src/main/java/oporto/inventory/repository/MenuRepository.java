@@ -71,6 +71,11 @@ public class MenuRepository {
         jdbcTemplate.update(sql, id);
     }
 
+    public int searchMenuQuantity(String id) {
+        String sql = "SELECT menuQuantity FROM menu WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, id);
+    }
+
 
     private String generateId(String menuCategory) {
         // Logic to generate item ID based on item category

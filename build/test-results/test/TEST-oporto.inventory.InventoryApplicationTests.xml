@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="oporto.inventory.InventoryApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-03-09T08:29:03" hostname="EJs-MacBook-Air.local" time="0.415">
+<testsuite name="oporto.inventory.InventoryApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-06-16T07:31:15" hostname="EJs-MacBook-Air.local" time="0.402">
   <properties/>
-  <testcase name="contextLoads()" classname="oporto.inventory.InventoryApplicationTests" time="0.415"/>
-  <system-out><![CDATA[19:29:02.445 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [oporto.inventory.InventoryApplicationTests]: InventoryApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-19:29:02.485 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration oporto.inventory.InventoryApplication for test class oporto.inventory.InventoryApplicationTests
+  <testcase name="contextLoads()" classname="oporto.inventory.InventoryApplicationTests" time="0.402"/>
+  <system-out><![CDATA[17:31:15.163 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [oporto.inventory.InventoryApplicationTests]: InventoryApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:31:15.202 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration oporto.inventory.InventoryApplication for test class oporto.inventory.InventoryApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -13,10 +13,9 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.3)
 
-2024-03-09T19:29:02.631+11:00  INFO 9013 --- [    Test worker] o.inventory.InventoryApplicationTests    : Starting InventoryApplicationTests using Java 17.0.8 with PID 9013 (started by ej in /Users/ej/Desktop/inventory)
-2024-03-09T19:29:02.632+11:00  INFO 9013 --- [    Test worker] o.inventory.InventoryApplicationTests    : No active profile set, falling back to 1 default profile: "default"
-2024-03-09T19:29:02.974+11:00  INFO 9013 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
-2024-03-09T19:29:03.089+11:00  INFO 9013 --- [    Test worker] o.inventory.InventoryApplicationTests    : Started InventoryApplicationTests in 0.545 seconds (process running for 1.086)
+2024-06-16T17:31:15.349+10:00  INFO 22211 --- [    Test worker] o.inventory.InventoryApplicationTests    : Starting InventoryApplicationTests using Java 17.0.8 with PID 22211 (started by ej in /Users/ej/Desktop/inventory)
+2024-06-16T17:31:15.350+10:00  INFO 22211 --- [    Test worker] o.inventory.InventoryApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2024-06-16T17:31:15.920+10:00  INFO 22211 --- [    Test worker] o.inventory.InventoryApplicationTests    : Started InventoryApplicationTests in 0.662 seconds (process running for 1.122)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

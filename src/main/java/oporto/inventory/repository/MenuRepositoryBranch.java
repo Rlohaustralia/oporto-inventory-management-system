@@ -25,31 +25,31 @@ public class MenuRepositoryBranch {
     public Integer getBranchMenuQuantity(String branchId, String menuId) {
         String sql = "SELECT branchMenuQuantity FROM branchMenu WHERE branchId = ? AND menuId = ?";
         try {
-            return jdbcTemplate.queryForObject(sql, Integer.class, branchId, menuId);
+            Integer quantity = jdbcTemplate.queryForObject(sql, Integer.class, branchId, menuId);
+            return (quantity != null) ? quantity : 0; // Return 0 if quantity is null
         } catch (EmptyResultDataAccessException e) {
             return 0; // Return 0 if no row is found
         }
     }
 
-    public Orders saveOrder(Orders orders) {
+    public void saveOrder(Orders orders) {
 
-        String checkCurrentMenuQuantity = "SELECT menuQuantity FROM menu WHERE menuId = ?";
-        int currentMenuQuantity = jdbcTemplate.queryForObject(checkCurrentMenuQuantity, Integer.class, orders.getOrderQuantity());
-        int branchMenuQuantity = getBranchMenuQuantity(orders.getBranchId(), orders.getMenuId());
+        int currentBranchMenuQuantity = getBranchMenuQuantity(orders.getBranchId(), orders.getMenuId());
 
-        if (orders.getOrderQuantity() <= currentMenuQuantity) {
+        if (orders.getOrderQuantity() <= orders.getHqQuantity()) {
 
             // Decrease menu quantity from HQ
-            String updateMenuQuantityQuery = "UPDATE menu SET menuQuantity = menuQuantity - ? WHERE menuId = ?";
+            String updateMenuQuantityQuery = "UPDATE menu SET menuQuantity = menuQuantity - ? WHERE id = ?";
             jdbcTemplate.update(updateMenuQuantityQuery, orders.getOrderQuantity(), orders.getMenuId());
 
+
             // Increase branch menu quantity
-            if (branchMenuQuantity > 0) {
+            if (currentBranchMenuQuantity > 0) {
                 String updateBranchMenuQuantityQuery = "UPDATE branchMenu SET branchMenuQuantity = branchMenuQuantity + ? WHERE menuId = ? AND branchId = ?";
                 jdbcTemplate.update(updateBranchMenuQuantityQuery, orders.getOrderQuantity(), orders.getMenuId(), orders.getBranchId());
             } else {
                 // create entry if it doesn't exist
-                String insertBranchMenuQuery = "INSERT branchMenu (branchId, menuId, branchMenuQuantity) VALUES (?, ?, ?)";
+                String insertBranchMenuQuery = "INSERT INTO branchMenu (branchId, menuId, branchMenuQuantity) VALUES (?, ?, ?)";
                 jdbcTemplate.update(insertBranchMenuQuery, orders.getBranchId(), orders.getMenuId(), orders.getOrderQuantity());
             }
 
@@ -61,6 +61,6 @@ public class MenuRepositoryBranch {
             throw new IllegalArgumentException("Order quantity exceeds available menu quantity.");
         }
 
-        return orders;
+
     }
 }

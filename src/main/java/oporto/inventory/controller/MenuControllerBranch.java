@@ -3,18 +3,19 @@ package oporto.inventory.controller;
 
 import oporto.inventory.domain.Menu;
 import oporto.inventory.domain.Orders;
-import oporto.inventory.repository.MemberRepository;
 import oporto.inventory.repository.MenuRepository;
 import oporto.inventory.repository.MenuRepositoryBranch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 @Controller // A Spring MVC controller
 @RequestMapping("/admin/branch/{memberBranch}/menus") // Maps the controller to the specified URL path
@@ -85,30 +86,45 @@ public class MenuControllerBranch {
 
     @PostMapping("/order")
     public String postOrderForm(@PathVariable(name = "memberBranch") String branchName,
-                                @RequestParam(name = "branchId") String branchId,
-                                @RequestParam(name = "menuId") String menuId,
-                                @RequestParam(name = "hqQuantity") int hqQuantity,
-                                @RequestParam(name = "orderQuantity") int orderQuantity,
-                                @RequestParam(name = "orderDate") Timestamp orderDate,
-                                Model model) {
+                                @RequestParam(name = "selectedMenus") List<String> selectedMenus,
+                                @RequestParam(name = "orderQuantities") List<Integer> AllOrderQuantities,
+                                RedirectAttributes redirectAttributes) {
 
-        // Redirect the user back to the orderForm page if none of select boxes are checked
-        if (hqQuantity == 0 && orderQuantity == 0) {
-            return "redirect:/order";
+        // Remove zeros from orderQuantities list so that we can only extract from selected menus' order quantities.
+        List<Integer> orderQuantities = new ArrayList<>(selectedMenus.size());
+        for (int i = 0; i < AllOrderQuantities.size(); i++) {
+            if (AllOrderQuantities.get(i) != 0) {
+                orderQuantities.add(AllOrderQuantities.get(i));
+            }
         }
 
-        Orders orders = new Orders();
-        orders.setBranchId(branchId);
-        orders.setMenuId(menuId);
-        orders.setHqQuantity(hqQuantity);
-        orders.setOrderQuantity(orderQuantity);
-        orders.setOrderDate(orderDate);
+        // Validate if both selectedMenus and orderQuantities are not null and have the same size
+        if (selectedMenus.size() != orderQuantities.size()) {
+            return "redirect:/admin/branch/" + branchName + "/menus/order";
+        }
 
-        Orders orderDetails = menuRepositoryBranch.saveOrder(orders);
+        try {
+            for (int i = 0; i < selectedMenus.size(); i++) {
+                String menuId = selectedMenus.get(i);
+                int orderQuantity = orderQuantities.get(i);
 
-        model.addAttribute("branchName",branchName);
-        model.addAttribute("orderDetails", orderDetails);
-        return "redirect:/admin/branch/" + branchName + "/menus/order/confirmation";
+                Orders orders = new Orders();
+
+                String branchId = menuRepositoryBranch.getBranchId(branchName);
+                orders.setBranchId(branchId);
+                orders.setMenuId(menuId);
+                int hqQuantity = menuRepository.searchMenuQuantity(menuId);
+                orders.setHqQuantity(hqQuantity);
+                orders.setOrderQuantity(orderQuantity);
+                orders.setOrderDate(new Timestamp(System.currentTimeMillis()));
+
+                menuRepositoryBranch.saveOrder(orders);
+            }
+            return "redirect:/admin/branch/" + branchName + "/menus/order/confirmation";
+        } catch (Exception e) {
+            // Reload the page
+            return "redirect:/admin/branch/" + branchName + "/menus/order";
+        }
     }
 
     @GetMapping("/order/confirmation")
@@ -116,5 +132,5 @@ public class MenuControllerBranch {
         return "view/orderConfirmation";
     }
 
-
 }
+

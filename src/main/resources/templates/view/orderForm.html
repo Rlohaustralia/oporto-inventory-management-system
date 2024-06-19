@@ -32,6 +32,8 @@
     <h6> * The branch quantities lower than 20 are recommended for ordering</h6>
     <div>
         <form th:action="@{'/admin/branch/' + ${branchName} + '/menus/order'}" method="post">
+        <!-- Hidden inputs for required parameters -->
+            <input type="hidden" name="branchId" th:value="${branchId}">
             <table class="table">
                 <thead>
                 <tr>
@@ -57,7 +59,7 @@
                     <td th:text="${menu.menuQuantity}">HQ QUANTITY</td>
                     <td th:classappend="${branchMenuQuantities[iterStat.index] < 20 ? 'low-stock' : 'normal-stock'}"
                         th:text="${branchMenuQuantities[iterStat.index]}">BRANCH QUANTITY</td>
-                    <td><input type="number" name="orderQuantities[__${menu.id}__]" value="0" min="0" th:max="${menu.menuQuantity}"></td>
+                    <td><input type="number" name="orderQuantities" value="0" min="0" th:max="${menu.menuQuantity}"></td>
                 </tr>
                 </tbody>
             </table>
