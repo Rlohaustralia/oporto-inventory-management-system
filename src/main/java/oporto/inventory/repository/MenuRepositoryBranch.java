@@ -32,7 +32,7 @@ public class MenuRepositoryBranch {
         }
     }
 
-    public void saveOrder(Orders orders) {
+    public int saveOrder(Orders orders) {
 
         int currentBranchMenuQuantity = getBranchMenuQuantity(orders.getBranchId(), orders.getMenuId());
 
@@ -57,10 +57,41 @@ public class MenuRepositoryBranch {
             String saveOrderDetailsQuery = "INSERT INTO orders (menuId, orderQuantity, orderDate, branchId) VALUES (?, ?, ?, ?)";
             jdbcTemplate.update(saveOrderDetailsQuery, orders.getMenuId(), orders.getOrderQuantity(), orders.getOrderDate(), orders.getBranchId());
 
+            // Fetch orderId for the saved order
+            String fetchOrderIdQuery = "SELECT LAST_INSERT_ID()";
+            return jdbcTemplate.queryForObject(fetchOrderIdQuery, Integer.class);
+
         } else {
             throw new IllegalArgumentException("Order quantity exceeds available menu quantity.");
         }
 
 
     }
+
+    public void cancelOrderByOrderId(int orderId) {
+
+        // Fetch order details
+        String branchIdQuery = "SELECT branchId FROM orders WHERE id = ?";
+        String branchId = jdbcTemplate.queryForObject(branchIdQuery, String.class, orderId);
+
+        String menuIdQuery = "SELECT menuId FROM orders WHERE id = ?";
+        String menuId = jdbcTemplate.queryForObject(menuIdQuery, String.class, orderId);
+
+        String orderQuantityQuery = "SELECT orderQuantity FROM orders WHERE id = ?";
+        Integer orderQuantity = jdbcTemplate.queryForObject(orderQuantityQuery, Integer.class, orderId);
+
+        // Increase menu quantity from HQ
+        String updateMenuQuantityQuery = "UPDATE menu SET menuQuantity = menuQuantity + ? WHERE id = ?";
+        jdbcTemplate.update(updateMenuQuantityQuery, orderQuantity, menuId);
+
+        // Decrease menu quantity from Branch
+        String updateBranchMenuQuantityQuery = "UPDATE branchMenu SET branchMenuQuantity = branchMenuQuantity - ? WHERE menuId = ? AND branchId = ?";
+        jdbcTemplate.update(updateBranchMenuQuantityQuery, orderQuantity, menuId, branchId);
+
+        // Delete order history from orders table
+        String deleteOrderQuery = "DELETE FROM orders WHERE id = ?";
+        jdbcTemplate.update(deleteOrderQuery, orderId);
+
+    }
+
 }

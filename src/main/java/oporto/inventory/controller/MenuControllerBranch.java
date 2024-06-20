@@ -7,14 +7,15 @@ import oporto.inventory.repository.MenuRepository;
 import oporto.inventory.repository.MenuRepositoryBranch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.naming.NamingEnumeration;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 @Controller // A Spring MVC controller
@@ -103,6 +104,9 @@ public class MenuControllerBranch {
             return "redirect:/admin/branch/" + branchName + "/menus/order";
         }
 
+        List<Orders> orderDetails = new ArrayList<>();
+        List<Integer> orderIds = new ArrayList<>();
+
         try {
             for (int i = 0; i < selectedMenus.size(); i++) {
                 String menuId = selectedMenus.get(i);
@@ -113,24 +117,54 @@ public class MenuControllerBranch {
                 String branchId = menuRepositoryBranch.getBranchId(branchName);
                 orders.setBranchId(branchId);
                 orders.setMenuId(menuId);
+                orders.setMenuName(menuRepository.searchMenuNameById(menuId));
                 int hqQuantity = menuRepository.searchMenuQuantity(menuId);
                 orders.setHqQuantity(hqQuantity);
                 orders.setOrderQuantity(orderQuantity);
                 orders.setOrderDate(new Timestamp(System.currentTimeMillis()));
 
-                menuRepositoryBranch.saveOrder(orders);
+                // Save order and fetch orderId
+                orderIds.add(menuRepositoryBranch.saveOrder(orders));
+                orderDetails.add(orders);
             }
+
+            redirectAttributes.addFlashAttribute("orderDetails", orderDetails);
+            redirectAttributes.addFlashAttribute("orderIds", orderIds);
+            redirectAttributes.addFlashAttribute("branchName", branchName);
+
             return "redirect:/admin/branch/" + branchName + "/menus/order/confirmation";
+
         } catch (Exception e) {
             // Reload the page
             return "redirect:/admin/branch/" + branchName + "/menus/order";
         }
     }
 
+
     @GetMapping("/order/confirmation")
-    public String getOrderConfirmation() {
+    public String getOrderConfirmation(@PathVariable(name = "memberBranch") String branchName) {
         return "view/orderConfirmation";
     }
+
+
+    @PostMapping("/order/confirmation")
+    public String cancelOrder(@PathVariable(name = "memberBranch") String branchName,
+                              @RequestParam List<Integer> orderIds,
+                              RedirectAttributes redirectAttributes) {
+
+        try {
+            // Loop through orderDetails and cancel each order by orderId
+            for (int orderId : orderIds) {
+                menuRepositoryBranch.cancelOrderByOrderId(orderId);
+            }
+        } catch (Exception e) {
+            // Handle exceptions
+            return "redirect:/admin/branch/" + branchName + "/menus/order/confirmation";
+        }
+        return "redirect:/admin/branch/" + branchName + "/menus"; // Redirect to menus page after cancellation
+    }
+
+
 
 }
 

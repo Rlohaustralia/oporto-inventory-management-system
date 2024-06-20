@@ -34,6 +34,11 @@ public class MenuRepository {
         }
     }
 
+    public String searchMenuNameById(String id) {
+        String sql = "SELECT menuName FROM menu WHERE id = ?";
+        return jdbcTemplate.queryForObject(sql, String.class, id);
+    }
+
 
     // Save menus
     public Menu saveMenu(Menu menu) {
