@@ -42,7 +42,6 @@ public class MenuRepositoryBranch {
             String updateMenuQuantityQuery = "UPDATE menu SET menuQuantity = menuQuantity - ? WHERE id = ?";
             jdbcTemplate.update(updateMenuQuantityQuery, orders.getOrderQuantity(), orders.getMenuId());
 
-
             // Increase branch menu quantity
             if (currentBranchMenuQuantity > 0) {
                 String updateBranchMenuQuantityQuery = "UPDATE branchMenu SET branchMenuQuantity = branchMenuQuantity + ? WHERE menuId = ? AND branchId = ?";
@@ -64,8 +63,6 @@ public class MenuRepositoryBranch {
         } else {
             throw new IllegalArgumentException("Order quantity exceeds available menu quantity.");
         }
-
-
     }
 
     public void cancelOrderByOrderId(int orderId) {
@@ -91,7 +88,5 @@ public class MenuRepositoryBranch {
         // Delete order history from orders table
         String deleteOrderQuery = "DELETE FROM orders WHERE id = ?";
         jdbcTemplate.update(deleteOrderQuery, orderId);
-
     }
-
 }

@@ -27,7 +27,7 @@ public class MenuRepository {
     public Menu searchMenuById(String id) {
         String sql = "SELECT * FROM menu WHERE id = ?";
         List<Menu> result = jdbcTemplate.query(sql, new Object[]{id}, itemRowMapper());
-        if(!result.isEmpty()) {
+        if (!result.isEmpty()) {
             return result.get(0);
         } else {
             return null;
@@ -128,4 +128,38 @@ public class MenuRepository {
             }
         };
     }
+
+    public List<Menu> searchMenuByKeyword(String keyword) {
+        String sql = "SELECT * FROM menu WHERE menuName LIKE ? OR menuCategory LIKE?";
+        String likePattern = "%" + keyword + "%";
+        return jdbcTemplate.query(sql, new Object[]{likePattern, likePattern}, new MenuRowMapper());
+    }
+
+    private static class MenuRowMapper implements RowMapper<Menu> {
+        @Override
+        public Menu mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Menu menu = new Menu();
+            menu.setId(rs.getString("id"));
+            menu.setMenuCategory(rs.getString("menuCategory"));
+            menu.setMenuName(rs.getString("menuName"));
+            menu.setMenuPrice(rs.getDouble("menuPrice"));
+            menu.setMenuQuantity(rs.getInt("menuQuantity"));
+            return menu;
+        }
+    }
+
+    // For pagination
+    public List<Menu> findMenusByBranchId(String branchId, int offset, int limit) {
+        String sql = "SELECT * FROM branchMenu WHERE branchId = ? OFFSET = ? LIMIT = ?";
+        return jdbcTemplate.query(sql, new Object[]{branchId, offset, limit}, new MenuRowMapper());
+    }
+
+    public int countMenusByBranchId(String branchId) {
+        String sql = "SELECT COUNT(*) FROM branchMenu WHERE branchId = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, branchId);
+    }
+
 }
+
+
+

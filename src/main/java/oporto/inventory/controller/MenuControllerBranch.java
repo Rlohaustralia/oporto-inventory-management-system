@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.naming.NamingEnumeration;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +33,21 @@ public class MenuControllerBranch {
 
 
     @GetMapping // HTTP GET requests for displaying menus
-    public String menus(@PathVariable(name = "memberBranch") String branchName, Model model) {
+    public String menus(@PathVariable(name = "memberBranch") String branchName,
+                        @RequestParam(name = "page", defaultValue = "0") int page,
+                        @RequestParam(name = "size", defaultValue = "10") int size,
+                        Model model) {
 
         // Retrieve all menus
-        List<Menu> menus = menuRepository.allItem();
+//        List<Menu> menus = menuRepository.allItem();
 
         // Retrieve branch ID using branch name
         String branchId = menuRepositoryBranch.getBranchId(branchName);
+
+        int offset = page * size;
+        List<Menu> menus = menuRepository.findMenusByBranchId(branchId, offset, size);
+        int totalMenus = menuRepository.countMenusByBranchId(branchId);
+        int totalPages = (int) Math.ceil((double) totalMenus /size);
 
         // Retrieve branch menu quantities for each menu
         List<Integer> branchMenuQuantities = new ArrayList<>();
@@ -55,6 +62,9 @@ public class MenuControllerBranch {
         model.addAttribute("branchId", branchId);
         model.addAttribute("branchName", branchName);
         model.addAttribute("branchMenuQuantities", branchMenuQuantities);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalMenus);
         return "view/menusBranch"; // Return view page
     }
 
@@ -164,7 +174,29 @@ public class MenuControllerBranch {
         return "redirect:/admin/branch/" + branchName + "/menus"; // Redirect to menus page after cancellation
     }
 
+    @GetMapping("/search")
+    public String searchMenus(@PathVariable(name = "memberBranch") String branchName,
+                              @RequestParam(name = "keyword", required = false, defaultValue = "")
+                                  String keyword, Model model) {
 
+        List<Menu> menus = menuRepository.searchMenuByKeyword(keyword);
+        String branchId = menuRepositoryBranch.getBranchId(branchName);
+        
 
+        // Retrieve branch menu quantities for each menu
+        List<Integer> branchMenuQuantities = new ArrayList<>();
+        for (Menu menu : menus) {
+            String menuId = menu.getId();
+            int branchMenuQuantity = menuRepositoryBranch.getBranchMenuQuantity(branchId, menuId);
+            branchMenuQuantities.add(branchMenuQuantity);
+        }
+
+        model.addAttribute("menus", menus);
+        if (branchId != null) model.addAttribute("branchId", branchId);
+        if (branchName != null) model.addAttribute("branchName", branchName);
+        model.addAttribute("branchMenuQuantities", branchMenuQuantities);
+
+        return "view/menusBranch";
+    }
 }
 

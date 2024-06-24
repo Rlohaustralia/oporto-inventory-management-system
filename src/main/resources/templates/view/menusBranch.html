@@ -19,6 +19,9 @@
         .normal-stock {
             color: blue;
         }
+        .input-group .form-control {
+            width: 270px;
+        }
     </style>
 </head>
 <body>
@@ -27,17 +30,24 @@
         <h2>Branch Inventory Overview</h2>
         <h3 th:text="${branchName}"></h3>
     </div>
-    <div class="row">
-        <div class="col">
-            <button class="btn btn-primary float-end"
-                    th:if="${memberBranch}"
-                    th:onclick="|location.href='@{/admin/branch/{branchName}/menus/order(branchName=${branchName})}'|"
-                    type="button"> Place order from HQ
-            </button>
-
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-8">
+                <form th:action="@{|/admin/branch/${memberBranch}/menus/search|}" method="get">
+                    <div class="input-group">
+                        <input type="text" name="keyword" placeholder="Search by name or category" class="form-control" style="max-width: 270px;" />
+                        <button class="btn btn-secondary" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-4 text-end">
+                <button class="btn btn-primary"
+                        th:if="${memberBranch}"
+                        th:onclick="|location.href='@{/admin/branch/{branchName}/menus/order(branchName=${branchName})}'|"
+                        type="button">Place order from HQ
+                </button>
+            </div>
         </div>
-    </div>
-    <hr class ="my-4">
     <div>
         <table class ="table">
             <thead>
@@ -66,6 +76,19 @@
             </tr>
             </tbody>
         </table>
+    </div>
+    <div>
+        <ul class="pagination">
+            <li th:if="${currentPage > 0}">
+                <a th:href="@{|/admin/branch/${branchName}/menus?page=${currentPage - 1}&size=${size}|}">Previous</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
+                <a th:href="@{|/admin/branch/${branchName}/menus?page=${i}&size=${size}|}" th:text="${i + 1}">1</a>
+            </li>
+            <li th:if="${currentPage < totalPages - 1}">
+                <a th:href="@{|/admin/branch/${branchName}/menus?page=${currentPage + 1}&size=${size}|}">Next</a>
+            </li>
+        </ul>
     </div>
 </div>
 </body>
