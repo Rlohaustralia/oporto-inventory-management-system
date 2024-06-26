@@ -34,20 +34,19 @@ public class MenuControllerBranch {
 
     @GetMapping // HTTP GET requests for displaying menus
     public String menus(@PathVariable(name = "memberBranch") String branchName,
-                        @RequestParam(name = "page", defaultValue = "0") int page,
-                        @RequestParam(name = "size", defaultValue = "10") int size,
+                        @RequestParam(defaultValue = "0") int page,
+                        @RequestParam(defaultValue = "10") int size,
                         Model model) {
 
-        // Retrieve all menus
+
 //        List<Menu> menus = menuRepository.allItem();
+        List<Menu> menus = menuRepository.getMenus(page, size);
+        int totalMenus = menuRepository.getTotalMenus();
+        int totalPages = (int) Math.ceil((double) totalMenus / size);
+
 
         // Retrieve branch ID using branch name
         String branchId = menuRepositoryBranch.getBranchId(branchName);
-
-        int offset = page * size;
-        List<Menu> menus = menuRepository.findMenusByBranchId(branchId, offset, size);
-        int totalMenus = menuRepository.countMenusByBranchId(branchId);
-        int totalPages = (int) Math.ceil((double) totalMenus /size);
 
         // Retrieve branch menu quantities for each menu
         List<Integer> branchMenuQuantities = new ArrayList<>();
@@ -57,14 +56,14 @@ public class MenuControllerBranch {
             branchMenuQuantities.add(branchMenuQuantity);
         }
 
-        // Add attributes to model for the order form view
+        // Add attributes to model for the view
         model.addAttribute("menus", menus);
         model.addAttribute("branchId", branchId);
         model.addAttribute("branchName", branchName);
         model.addAttribute("branchMenuQuantities", branchMenuQuantities);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("totalItems", totalMenus);
+
         return "view/menusBranch"; // Return view page
     }
 
@@ -94,6 +93,7 @@ public class MenuControllerBranch {
 
         return "view/orderForm"; // Return order form view
     }
+
 
     @PostMapping("/order")
     public String postOrderForm(@PathVariable(name = "memberBranch") String branchName,
@@ -174,6 +174,7 @@ public class MenuControllerBranch {
         return "redirect:/admin/branch/" + branchName + "/menus"; // Redirect to menus page after cancellation
     }
 
+
     @GetMapping("/search")
     public String searchMenus(@PathVariable(name = "memberBranch") String branchName,
                               @RequestParam(name = "keyword", required = false, defaultValue = "")
@@ -181,7 +182,6 @@ public class MenuControllerBranch {
 
         List<Menu> menus = menuRepository.searchMenuByKeyword(keyword);
         String branchId = menuRepositoryBranch.getBranchId(branchName);
-        
 
         // Retrieve branch menu quantities for each menu
         List<Integer> branchMenuQuantities = new ArrayList<>();
@@ -190,8 +190,8 @@ public class MenuControllerBranch {
             int branchMenuQuantity = menuRepositoryBranch.getBranchMenuQuantity(branchId, menuId);
             branchMenuQuantities.add(branchMenuQuantity);
         }
-
         model.addAttribute("menus", menus);
+
         if (branchId != null) model.addAttribute("branchId", branchId);
         if (branchName != null) model.addAttribute("branchName", branchName);
         model.addAttribute("branchMenuQuantities", branchMenuQuantities);

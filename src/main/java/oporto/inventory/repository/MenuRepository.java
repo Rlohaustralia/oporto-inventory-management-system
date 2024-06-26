@@ -135,6 +135,18 @@ public class MenuRepository {
         return jdbcTemplate.query(sql, new Object[]{likePattern, likePattern}, new MenuRowMapper());
     }
 
+    public List<Menu> getMenus(int page, int limit) {
+        int offset = page * limit;
+        String sql = "SELECT * FROM menu LIMIT ? OFFSET ?";
+        return jdbcTemplate.query(sql, new Object[]{limit, offset}, new MenuRowMapper());
+    }
+
+    public int getTotalMenus() {
+        String sql = "SELECT COUNT(*) FROM menu";
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+
+
     private static class MenuRowMapper implements RowMapper<Menu> {
         @Override
         public Menu mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -148,16 +160,6 @@ public class MenuRepository {
         }
     }
 
-    // For pagination
-    public List<Menu> findMenusByBranchId(String branchId, int offset, int limit) {
-        String sql = "SELECT * FROM branchMenu WHERE branchId = ? OFFSET = ? LIMIT = ?";
-        return jdbcTemplate.query(sql, new Object[]{branchId, offset, limit}, new MenuRowMapper());
-    }
-
-    public int countMenusByBranchId(String branchId) {
-        String sql = "SELECT COUNT(*) FROM branchMenu WHERE branchId = ?";
-        return jdbcTemplate.queryForObject(sql, Integer.class, branchId);
-    }
 
 }
 

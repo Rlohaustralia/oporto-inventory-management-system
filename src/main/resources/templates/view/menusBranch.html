@@ -78,18 +78,18 @@
         </table>
     </div>
     <div>
-        <ul class="pagination">
-            <li th:if="${currentPage > 0}">
-                <a th:href="@{|/admin/branch/${branchName}/menus?page=${currentPage - 1}&size=${size}|}">Previous</a>
-            </li>
-            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
-                <a th:href="@{|/admin/branch/${branchName}/menus?page=${i}&size=${size}|}" th:text="${i + 1}">1</a>
-            </li>
-            <li th:if="${currentPage < totalPages - 1}">
-                <a th:href="@{|/admin/branch/${branchName}/menus?page=${currentPage + 1}&size=${size}|}">Next</a>
-            </li>
-        </ul>
+    <span th:if="${currentPage != null and currentPage > 0}">
+        <a th:href="@{/items(page=${(currentPage ?: 0) - 1}, size=${size})}">Previous</a>
+    </span>
+        <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+        <a th:if="${i != (currentPage ?: 0)}" th:href="@{/items(page=${i}, size=${size})}" th:text="${i + 1}">1</a>
+        <span th:if="${i == (currentPage ?: 0)}" th:text="${i + 1}"></span>
+    </span>
+        <span th:if="${currentPage != null and currentPage < totalPages - 1}">
+        <a th:href="@{/items(page=${(currentPage ?: 0) + 1}, size=${size})}">Next</a>
+    </span>
     </div>
-</div>
+
+    </div>
 </body>
 </html>
