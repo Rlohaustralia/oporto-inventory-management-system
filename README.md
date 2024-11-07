@@ -8,14 +8,6 @@ It includes the following functionality: [Watch Demo](https://youtu.be/U0T9XXeQf
 - **Menu Deletion:** Allows administrators to remove items from the menu when they are no longer available or relevant.
 <br><br><br>
 
-
-
-## Explore the system
-[Visit the Live Website](http://13.210.82.42:8080/)
-!Currently not available
-<br><br><br>
-
-
 ## Built with
 - Backend: Java, Spring Boot 3.2.3, MySQL
 - Frontend: HTML, Thymeleaf, Bootstrap CSS
